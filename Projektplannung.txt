@@ -1,0 +1,44 @@
+Startseite
+	=> Kalender Öffentliche Veranstaltungen
+	=> Login
+	=> Registrieren
+
+Profilseite
+	=> Name
+	=> Bild
+	=> EMail
+	=> Geburtstag
+	=> Mitglied seid
+
+Übersicht Veranstaltungen 
+	=> Nächste Veranstaltungen 
+	=> Kalender
+	=> Anmeldung für Veranstaltung
+	=> Meine Einladungen
+		=> Zusagen
+		=> Interessiert
+		=> Absagen
+
+Eigene Veranstaltunen
+	=> Erstellen
+	=> Einladungen verschicken ( Immer an alle registrierten Benutzer im altersbereich )
+	=> Bearbeiten
+	=> Löschen
+
+Lokations
+	=> Erstellen
+	=> Bearbeiten
+	=> Löschen (nur wenn keine Veranstaltungen vorhanden sind)
+
+DB:
+users
+id(auto_increment),Email, Vorname, Name, bild, reg_datum, Telefon, Password,Geburtstag,Aktiv
+
+Veranstaltung
+id(auto_increment), varchar Name, varchar Beschreibung, bool pubic ,Datum, Ersteller(id), Location, preis, start_datum, ende_datum, min_alter
+
+Locations
+id(auto_increment), varchar Name, varchar Ort, int Plz, int max_teilnehmer
+
+Teilnehmer
+veranstaltung(id),user(id), tinyint status(Eingeladen=0, Interessiert=1, Zugesagt= 2, Abgesagt=3)
