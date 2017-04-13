@@ -1,29 +1,31 @@
-<body>
-<?php if($showFormular) {?>
-<h1>Registrieren</h1>
-<form action="?register=1" method="post">
-E-Mail:<br>
-<input type="email" size="40" maxlength="250" name="email"><br>
- 
-Passwort:<br>
-<input type="password" size="40"  maxlength="250" name="passwort"><br>
- 
-Passwort wiederholen:<br>
-<input type="password" size="40" maxlength="250" name="passwort2"><br><br>
-<input type="hidden" name="register" value="true">
-<input type="submit" value="Abschicken">
-</form>
-<?php } else { ?>
-<h1>Login</h1>
-<form action="" method="post">
-E-Mail:<br>
-<input type="email" size="40" maxlength="250" name="email"><br>
+<?php
+include_once 'functions/mysql.php';
+include_once 'functions/functions.php';
 
-Passwort:<br>
-<input type="password" size="40"  maxlength="250" name="passwort"><br>
-<input type="submit" name="submit" value="Login">
-<input type="submit" name="submit" value="Registrieren">
-</form>
-<?php } ?>
-<h1>Kalender</h1>
-</body>
+sec_session_start();
+ 
+if (login_check($mysqli) == true) {
+    $logged = 'in';
+} else {
+    $logged = 'out';
+}
+?>
+    <body>
+        <?php
+        if (isset($_GET['error'])) {
+            echo '<p class="error">Error Logging In!</p>';
+        }
+        ?> 
+        <form action="process_login.php" method="post" name="login_form">                      
+            Email: <input type="text" name="email" />
+            Password: <input type="password" 
+                             name="password" 
+                             id="password"/>
+            <input type="button" 
+                   value="Login" 
+                   onclick="formhash(this.form, this.form.password);" /> 
+        </form>
+        <p>If you don't have a login, please <a href="register.php">register</a></p>
+        <p>If you are done, please <a href="logout.php">log out</a>.</p>
+        <p>You are currently logged <?php echo $logged ?>.</p>
+    </body>
