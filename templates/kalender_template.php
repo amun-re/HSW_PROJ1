@@ -1,9 +1,3 @@
-<html>
-    <head>
-        <title>Kalender</title>
-        <link type="text/css" rel="stylesheet" href="../css/kalender_style.css">
-        <script type="text/javascript" src="../js/kalender_script.js"></script>
-    </head>
     <body>
         <div id="kalender_container">
             <div id="kalender_kopf">
@@ -22,4 +16,3 @@
         </div>
         
     </body>
-</html>

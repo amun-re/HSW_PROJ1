@@ -1,4 +1,5 @@
 /*jslint devel: true */
+var html_data;
 
 window.onload = function () {
     "use strict";
@@ -77,10 +78,14 @@ function getKalenderTable(day_number, last_date_day,d,wochentage){
             else{
                 td.innerHTML = day_counter;
             }
+			var day = getZeroDate(day_counter);
+			var month = getZeroDate(d.getMonth()+1);
+			
             td.onclick = f_click;
             td.onmouseover = f_mouseover;
             td.onmouseout = f_mouseout;
             td.setAttribute("value",day_counter);
+			td.setAttribute("date",d.getFullYear() + "-" + month + "-" + day);
             td.setAttribute("wochentag", wochentage[i]);
             td.setAttribute("monatJahr", document.getElementById("kalender_kopf_inhalt").textContent);
             day_counter++;
@@ -91,13 +96,64 @@ function getKalenderTable(day_number, last_date_day,d,wochentage){
     }
     return table;
 }
+function getZeroDate(date)
+{
+	 if(date < 10){
+				date = '0' + date;    //add leading 0 if val < 10
+			}
+	return date;
+}
 
 function f_click(onclick){
     setText('calendar-day',this.getAttribute("wochentag"));
     setText('calendar-date',this.getAttribute("value"));
     setText('calendar-month-year', this.getAttribute("monatJahr"));
-    setText('calendar-eventtext', "Keine Veranstaltungen");
-     
+    getData(this.getAttribute("date"));
+	console.log("Selected '" + this.getAttribute("date") + "'"); 
+}
+
+function parseHTML(html) {
+	var parser = new DOMParser();
+	var document = parser.parseFromString(html, "text/xml");
+	var table = document.getElementById("events");
+	var r=0;
+	while(row=table.childNodes[r++])
+	{
+			var c = 0;
+			while(col=row.childNodes[c++])
+			{
+				console.log(col.name);
+			}
+	}
+	return table;
+}
+
+function getData(date)
+{
+	//var returnval = "";
+	 if (date == "") 
+	 {
+        document.getElementById("txtHint").innerHTML = "";
+        //return returnval;
+	 } else { 
+        if (window.XMLHttpRequest) {
+            // code for IE7+, Firefox, Chrome, Opera, Safari
+            xmlhttp = new XMLHttpRequest();
+        } else {
+            // code for IE6, IE5
+            xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
+        }
+        xmlhttp.onreadystatechange = function() {
+            if (this.readyState == 4 && this.status == 200) {
+				//returnval = this.responseText;
+				parseHTML(this.responseText);
+				//setText('calendar-eventtext', returnval);
+            }
+        };
+        //xmlhttp.open("GET","../functions/calender.func.php?date="+date,true);
+		xmlhttp.open("GET","../functions/calender.func.php?date="+date,true);
+        xmlhttp.send();
+    }
 }
 function setText(id, val){
     if(val < 10){
