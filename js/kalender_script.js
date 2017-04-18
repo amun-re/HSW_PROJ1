@@ -116,16 +116,25 @@ function parseHTML(html) {
 	var parser = new DOMParser();
 	var document = parser.parseFromString(html, "text/xml");
 	var table = document.getElementById("events");
-	var r=0;
+	var r=2;
+	var ret = "<b>Veranstaltungen</b><br>";
 	while(row=table.childNodes[r++])
 	{
-			var c = 0;
-			while(col=row.childNodes[c++])
+			//var c = 0;			
+			ret = ret + row.childNodes[1].innerHTML + "<br>";
+			console.log(ret);
+		/*	while(col=row.childNodes[c++])
 			{
-				console.log(col.name);
-			}
+				if(col.nodeName != "#text")
+				{ 
+					//if(col.nodeName == "th") // && col.childNodes[0].nodeName == "name")
+						console.log(col.childNodes[0]);
+				}
+			}*/
 	}
-	return table;
+	console.log(r);
+	if(r == 3) ret = "Keine Veranstaltungen";
+	return ret;
 }
 
 function getData(date)
@@ -146,7 +155,7 @@ function getData(date)
         xmlhttp.onreadystatechange = function() {
             if (this.readyState == 4 && this.status == 200) {
 				//returnval = this.responseText;
-				parseHTML(this.responseText);
+				setText('calendar-eventtext', parseHTML(this.responseText));
 				//setText('calendar-eventtext', returnval);
             }
         };

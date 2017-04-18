@@ -13,8 +13,10 @@ if (login_check($mysqli) == true) {
 include "templates/overview_template_head.php";
 if (login_check($mysqli) == true) 
 {
+	echo "<body>";
  include "templates/overview_template_body.php";
  include "templates/kalender_template.php";
+ echo "</body>";
 }
 else
 {

@@ -1,4 +1,3 @@
-    <body>
         <div id="kalender_container">
             <div id="kalender_kopf">
                 <span id="kalender_kopf_inhalt"></span>
@@ -15,4 +14,3 @@
             <p class="calendar-eventtext"></p>
         </div>
         
-    </body>

@@ -3,7 +3,7 @@
     padding  10px;
     width:  500px;
     height: 450px;
-    margin-left: 25%;
+   /* margin-left: 25%;*/
     margin-right: auto;
     text-align: center;
     border: 1px solid #eee;
@@ -67,6 +67,21 @@ p{
     float: inherit;
      width: 130px;
     height: 450px;
+    color: #fff;
+    border-radius: 10px;
+    border: 1px solid #eee;
+    box-shadow: 0 4px 4px 0 rgba(50, 50, 50, 0.4);
+    display: inline-block;
+    margin: 0  20px;
+    background-image: linear-gradient(#fff,#d3d3d3);
+}
+
+#navi{
+    float: left;
+    width: 15%;
+    height: 450px;
+	margin-left: 25%;
+	margin-right: auto;
     color: #fff;
     border-radius: 10px;
     border: 1px solid #eee;
