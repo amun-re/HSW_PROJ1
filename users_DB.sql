@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Erstellungszeit: 18. Apr 2017 um 16:20
+-- Erstellungszeit: 20. Apr 2017 um 13:02
 -- Server-Version: 10.1.21-MariaDB
 -- PHP-Version: 5.6.30
 
@@ -35,8 +35,8 @@ CREATE TABLE `events` (
   `creator` varchar(50) NOT NULL,
   `location` int(11) NOT NULL,
   `price` decimal(10,0) NOT NULL,
-  `bdate` date NOT NULL,
-  `edate` date NOT NULL,
+  `bdate` datetime NOT NULL,
+  `edate` datetime NOT NULL,
   `min_age` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
@@ -45,9 +45,10 @@ CREATE TABLE `events` (
 --
 
 INSERT INTO `events` (`id`, `name`, `description`, `public`, `date`, `creator`, `location`, `price`, `bdate`, `edate`, `min_age`) VALUES
-(1, 'test', 4, 0, '2017-04-05', '', 0, '0', '2017-04-20', '2017-04-22', 0),
-(2, 'test2', 33, 1, '2017-04-05', '', 0, '0', '0000-00-00', '0000-00-00', 0),
-(3, 'emty space', 0, 0, '2017-04-06', '', 0, '0', '0000-00-00', '0000-00-00', 0);
+(1, 'test', 4, 0, '2017-04-05', '', 0, '0', '2017-04-20 00:00:00', '2017-04-22 00:00:00', 0),
+(2, 'test2', 33, 1, '2017-04-05', '', 0, '0', '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0),
+(3, 'emty space', 0, 0, '2017-04-06', '', 0, '0', '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0),
+(4, 'IT-Projektmanagement', 0, 0, '2017-04-20', '', 0, '0', '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0);
 
 -- --------------------------------------------------------
 
@@ -74,6 +75,15 @@ CREATE TABLE `login_attempts` (
   `time` varchar(30) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+--
+-- Daten für Tabelle `login_attempts`
+--
+
+INSERT INTO `login_attempts` (`user_id`, `time`) VALUES
+(0, '1492671999'),
+(0, '1492672202'),
+(1, '1492679105');
+
 -- --------------------------------------------------------
 
 --
@@ -93,7 +103,8 @@ CREATE TABLE `members` (
 --
 
 INSERT INTO `members` (`id`, `username`, `email`, `password`, `salt`) VALUES
-(0, 'kuhnke', 'sdf@web.de', 'f341ec895e27a6de632f00827fb232cc96b27147ee72cdd8d99a71254bb0bceebfe354740d7d2969e2812f87c9475b8dd4be542ad88e5220dc2aac45bfea811d', 'fec31c5e423918d0ac132a42871fc98d27125a0c38030bdebe8050097848dd1d28b09149038f1b0ea4d89b01d92fb78a32a1d07692a3d477eb2687ce252511ef');
+(1, 'kuhnke', 'sdf@web.de', '04e7dd2d2fb13430183c6b7f39e62527d0ba05584e1a2de290d314200d83e8ac62121ec33382d35c3a75a88467899dd111b5a153ed9344fe40daadfe31db1c16', '76318990e9a5f60c352a9ef018fb77a97cd578bff188b4cb4f503a7bcb0e0941c114dc6d7fa8e1448161df66ac08f78778112c85da8407db2f1db02b30c5c6d0'),
+(2, 'test', 'test2@web.de', '1a52fd055045650c86710030c0b7a22812f08f6162cc4e08724bab7e694d89719d8c9bdf63b9c8a817cef4c79e519914b837e2e164a8e1e365bb0e99eee34cac', '0964adfcb1b56532e4b13d750f10e2da2553692797a4dd64edf090a0603e46ab53b9a2a0e0a10ac15f005e2fca46c6316b044d6dd5e4c55166c23c1e265265cf');
 
 -- --------------------------------------------------------
 
@@ -124,6 +135,12 @@ ALTER TABLE `locations`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indizes für die Tabelle `members`
+--
+ALTER TABLE `members`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indizes für die Tabelle `participants`
 --
 ALTER TABLE `participants`
@@ -137,12 +154,17 @@ ALTER TABLE `participants`
 -- AUTO_INCREMENT für Tabelle `events`
 --
 ALTER TABLE `events`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 --
 -- AUTO_INCREMENT für Tabelle `locations`
 --
 ALTER TABLE `locations`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT für Tabelle `members`
+--
+ALTER TABLE `members`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;

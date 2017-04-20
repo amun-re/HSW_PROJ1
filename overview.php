@@ -4,19 +4,23 @@ include_once 'functions/functions.php';
 
 sec_session_start();
  
-if (login_check($mysqli) == true) {
-    $logged = 'in';
-} else {
-    $logged = 'out';
-}
-
 include "templates/overview_template_head.php";
-if (login_check($mysqli) == true) 
+$login = login_check($mysqli);
+if ($login) 
 {
 	echo "<body>";
- include "templates/overview_template_body.php";
- include "templates/kalender_template.php";
- echo "</body>";
+	
+	include "templates/overview_template_body.php";
+	$page = "";
+	if(isset($_GET['page']))
+	 $page = $_GET['page'];
+	
+	$pageFunc = getPageFunctions($page);
+	
+	$dataArray = getPageData($page,$mysqli);
+	if($pageFunc != "") include getPageFunctions($page);
+	include getTemplate($page);
+	echo "</body>";
 }
 else
 {

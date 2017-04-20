@@ -185,5 +185,85 @@ function esc_url($url) {
         return $url;
     }
 }
+function getProfile($mysqli)
+{
+	// Überprüfe, ob alle Session-Variablen gesetzt sind 
+    if (isset($_SESSION['user_id'], 
+                        $_SESSION['username'], 
+                        $_SESSION['login_string'])) {
+ 
+        $user_id = $_SESSION['user_id'];
+        $login_string = $_SESSION['login_string'];
+        $username = $_SESSION['username'];
+ 
+        // Hole den user-agent string des Benutzers.
+        $user_browser = $_SERVER['HTTP_USER_AGENT'];
+ 
+        if ($stmt = $mysqli->prepare("SELECT username, email 
+                                      FROM members 
+                                      WHERE id = ? LIMIT 1")) {
+            // Bind "$user_id" zum Parameter. 
+            $stmt->bind_param('i', $user_id);
+            $stmt->execute();   // Execute the prepared query.
+            $stmt->store_result();
+ 
+            if ($stmt->num_rows == 1) 
+			{
+				$stmt->bind_result($username,$email);
+                $stmt->fetch();
+				return [ "username" => $username, 
+						 "email" => $email];
+			}
+		}
+	}	
+}
+
+
+function getPageData($string,$mysqli)
+{
+	switch($string)
+		{ 
+		case "profile":
+			return getProfile($mysqli);
+		case "events":
+			return [];
+		case "invites":
+			return [];
+		break;		
+		default:
+			return [];
+	}
+ 
+}
+function getPageFunctions($string)
+{
+	switch($string)
+		{ 
+		case "profile":
+			return "functions/profile.inc.php";
+		case "events":
+			return ""; //"templates/event_template.php";
+		case "invites":
+			return ""; //"templates/event_template.php";
+		break;		
+		default:
+			return "";
+	}
+}
+function getTemplate($string)
+{
+	switch($string)
+		{ 
+		case "profile":
+			return "templates/profile_template.php";
+		case "events":
+			return "templates/event_template.php";
+		case "invites":
+			return "templates/event_template.php";
+		break;		
+		default:
+			return "templates/kalender_template.php";
+	}
+}
 
 ?>

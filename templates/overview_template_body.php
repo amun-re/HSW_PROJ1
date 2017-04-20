@@ -7,10 +7,10 @@
                 authorised to access the page.
             </p>
   <ul>
-  <li><a href="profile.php">Profil</a></li>
-  <li><a href="events.php">Veranstaltungen</a></li>
-  <li><a href="events.php?eventplan=own">Eigene Veranstaltungen</a></li>
-  <li><a href="invites.php">Meine Einladungen</a></li>
+  <li><a href="?">Veranstaltungen</a></li>
+  <li><a href="?page=profile">Profil</a></li>
+  <li><a href="?page=events">Eigene Veranstaltungen</a></li>
+  <li><a href="?page=invites">Meine Einladungen</a></li>
   <li><a href="logout.php">Logout</a></li>
   </ul>
   <p>

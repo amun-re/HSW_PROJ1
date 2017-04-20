@@ -1,10 +1,10 @@
 <?php
 include_once 'mysql.php';
 include_once 'functions.php';
-if(isset($_GET['date'])) // && login_check($mysqli) == true)
+if(isset($_GET['date']) && strlen($_GET['date']) == 10) // && login_check($mysqli) == true)
 {
 $date = htmlentities($_GET['date']);
-$sql = "SELECT * FROM events WHERE date=?";
+$sql = "SELECT * FROM events WHERE date = ?";
 if ($stmt = $mysqli->prepare($sql))
 {
 	 $stmt->bind_param('s', $date);  // Bind "$email" to parameter.
@@ -46,9 +46,40 @@ if ($stmt = $mysqli->prepare($sql))
 		}
 	echo "</table>";
 	}
-}
+	else
+	{
+		echo $mysqli->error;
+	}
+}/*
 else
 {
 	echo "Check:" + login_check($mysqli);
+}*/
+
+if(isset($_GET['date']) && strlen($_GET['date']) == 7) 
+{
+	$date = htmlentities($_GET['date']);
+	$sql = "SELECT date FROM events WHERE date LIKE CONCAT(?,'%')";
+	if ($stmt = $mysqli->prepare($sql))
+	{
+		$stmt->bind_param('s', $date);  // Bind "$email" to parameter.
+		$stmt->execute();    // Führe die vorbereitete Anfrage aus.
+		$stmt->store_result();
+		
+		$stmt->bind_result($date);
+		$row = $stmt->fetch();
+		
+		echo "<table name=\"events\" id=\"events\">
+	<tr>
+	<th>date</th>
+	</tr>";
+		while ($row = $stmt->fetch()) 
+		{
+		echo "<tr>";
+		echo "<td>" . $date. "</td>";
+		echo "</tr>";
+		}
+	echo "</table>";
+	}
 }
 ?>
