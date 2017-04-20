@@ -59,10 +59,18 @@ function getKalenderTable(day_number, last_date_day,d,wochentage, eventDates){
     
     for(;i<=6;i++){
         var td = document.createElement("td");
-        td.innerHTML = day_counter;
+		td.innerHTML = day_counter;
         td.onclick = f_click;
         td.onmouseover = f_mouseover;
         td.onmouseout = f_mouseout;
+        if(day_counter == d.getDate()){  
+            td.innerHTML = "<b><font color=\"blue\">" + day_counter + "</font></b>";
+                td.className ="spezial";
+                td.onmouseout = null;
+            }
+            else{
+                td.innerHTML = day_counter;
+            }
         td.setAttribute("value",day_counter);
         td.setAttribute("wochentag", wochentage[i]);
         td.setAttribute("monatJahr", document.getElementById("kalender_kopf_inhalt").textContent);
@@ -84,8 +92,13 @@ function getKalenderTable(day_number, last_date_day,d,wochentage, eventDates){
             return table;
             }
             var td = document.createElement("td");
+            td.onclick = f_click;
+            td.onmouseover = f_mouseover;
+            td.onmouseout = f_mouseout;
             if(day_counter == d.getDate()){  
             td.innerHTML = "<b><font color=\"blue\">" + day_counter + "</font></b>";
+                td.className ="spezial";
+                td.onmouseout = null;
             }
 			else if(contains(eventDates,fulldate))
 			{
@@ -95,10 +108,13 @@ function getKalenderTable(day_number, last_date_day,d,wochentage, eventDates){
                 td.innerHTML = day_counter;
             }
 
-			
             td.onclick = f_click;
             td.onmouseover = f_mouseover;
             td.onmouseout = f_mouseout;
+
+			var day = getZeroDate(day_counter);
+			var month = getZeroDate(d.getMonth()+1);
+			
             td.setAttribute("value",day_counter);
 			td.setAttribute("date",fulldate);
             td.setAttribute("wochentag", wochentage[i]);
@@ -134,7 +150,26 @@ function f_click(onclick){
     setText('calendar-date',this.getAttribute("value"));
     setText('calendar-month-year', this.getAttribute("monatJahr"));
     getData(this.getAttribute("date"));
+	
 	//console.log("Selected '" + this.getAttribute("date") + "'"); 
+    
+       var table = document.getElementById('kalender_bauch').firstElementChild,
+    rows = table.rows, rowcount = rows.length, r,
+    cells, cellcount, c, cell;
+for( r=0; r<rowcount; r++) {
+    cells = rows[r].cells;
+    cellcount = cells.length;
+    for( c=0; c<cellcount; c++) {
+        cell = cells[c];
+        if(cell == this){
+            this.onmouseout = null;
+        }
+        else{
+            cell.onmouseout = f_mouseout;
+            cell.className = "normal";
+        }
+    }
+}
 }
 
 function parseHTML(html) {
