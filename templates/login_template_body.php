@@ -31,17 +31,17 @@ if (login_check($mysqli) == true) {
 					value="Login" 
 					onclick="formhash(this.form, this.form.password);" /> 
 			</form>
+			<p>You are currently logged <?php echo $logged ?>.
+			<?php
+			if ($logged == 'out'){
+				?>
+				If you don't have a login, please <a href="register.php">register</a>.</p>
+				<?php
+			} else {
+				?>
+				If you are done, please <a href="logout.php">log out</a>.</p>
+				<?php
+			}
+			?>
 		</div>
-        <p>You are currently logged <?php echo $logged ?>.</p>
-		<?php
-		if ($logged == 'out'){
-			?>
-			<p>If you don't have a login, please <a href="register.php">register</a>.</p>
-			<?php
-		} else {
-			?>
-			<p>If you are done, please <a href="logout.php">log out</a>.</p>
-			<?php
-		}
-		?>
     </body>
