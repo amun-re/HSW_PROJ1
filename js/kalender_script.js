@@ -4,6 +4,9 @@ var html_data;
 window.onload = function () {
     "use strict";
     var d = new Date();
+    initKalender(d);
+    
+    function initKalender(d){
     var month_name = ["Januar", "Februar", "März", "April", "Mai", "Juni", "Juli", "Juni", "August", "September", "Oktber", "November", "Dezember"];
     var day_name = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"];
     var wochentage = ["Montag", "Dienstag", "Mittwoch", "Donnerstag", "Freitag", "Samstag", "Sonntag"];
@@ -25,6 +28,8 @@ window.onload = function () {
 	var eventDates = parseEventDates(html_data);
 	var kalender_table = getKalenderTable(day_number, last_date_day,d, wochentage, eventDates);
     document.getElementById("kalender_bauch").appendChild(kalender_table);
+        
+    initButtons(document.getElementById("pfeil_back"), document.getElementById("pfeil_for"));
     
     setText('calendar-day',wochentage[current_day_number]);
     setText('calendar-date', d.getDate());
@@ -32,7 +37,7 @@ window.onload = function () {
     getData(fulldate);
 	//setText('calendar-eventtext', "Keine Veranstaltungen");
 }
-
+}
 // Nummer des ersten Tages des aktuellen Monats, Anzahl der Tage des aktuellen Monats
 function getKalenderTable(day_number, last_date_day,d,wochentage, eventDates){
 	var table = document.createElement("table");
@@ -286,4 +291,18 @@ function f_mouseover(onmouseover){
 
 function f_mouseout(onmouseout){
     this.className ="normal";
+}
+
+function initButtons (pfeil_b, pfeil_f){
+    pfeil_b.onmouseover = b_mouseover;
+    pfeil_b.onmouseout = b_mouseout;
+    pfeil_f.onmouseout = b_mouseout;
+    pfeil_f.onmouseover = b_mouseover;
+}
+
+function b_mouseover(onmouseover){
+    this.className = "b_spezial";
+}
+function b_mouseout(onmouseout){
+    this.className = "b_normal";
 }

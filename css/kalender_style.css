@@ -51,6 +51,8 @@
 
 .normal { background-color: initial; }
 .spezial { background-color:#A4A4A4; cursor:pointer; }
+.b_normal {box-shadow: initial;}
+.b_spezial {box-shadow: none; cursor : pointer;}
 
 
 p{
