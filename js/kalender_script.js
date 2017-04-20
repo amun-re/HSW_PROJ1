@@ -32,6 +32,7 @@ window.onload = function () {
     getData(fulldate);
 	//setText('calendar-eventtext', "Keine Veranstaltungen");
 }
+
 // Nummer des ersten Tages des aktuellen Monats, Anzahl der Tage des aktuellen Monats
 function getKalenderTable(day_number, last_date_day,d,wochentage, eventDates){
 	var table = document.createElement("table");
@@ -63,6 +64,7 @@ function getKalenderTable(day_number, last_date_day,d,wochentage, eventDates){
         td.onclick = f_click;
         td.onmouseover = f_mouseover;
         td.onmouseout = f_mouseout;
+		
         if(day_counter == d.getDate()){  
             td.innerHTML = "<b><font color=\"blue\">" + day_counter + "</font></b>";
                 td.className ="spezial";
@@ -95,7 +97,8 @@ function getKalenderTable(day_number, last_date_day,d,wochentage, eventDates){
             td.onclick = f_click;
             td.onmouseover = f_mouseover;
             td.onmouseout = f_mouseout;
-            if(day_counter == d.getDate()){  
+            
+			if(day_counter == d.getDate()){  
             td.innerHTML = "<b><font color=\"blue\">" + day_counter + "</font></b>";
                 td.className ="spezial";
                 td.onmouseout = null;
@@ -108,10 +111,6 @@ function getKalenderTable(day_number, last_date_day,d,wochentage, eventDates){
                 td.innerHTML = day_counter;
             }
 
-            td.onclick = f_click;
-            td.onmouseover = f_mouseover;
-            td.onmouseout = f_mouseout;
-
 			var day = getZeroDate(day_counter);
 			var month = getZeroDate(d.getMonth()+1);
 			
@@ -120,8 +119,7 @@ function getKalenderTable(day_number, last_date_day,d,wochentage, eventDates){
             td.setAttribute("wochentag", wochentage[i]);
             td.setAttribute("monatJahr", document.getElementById("kalender_kopf_inhalt").textContent);
             day_counter++;
-            tr.appendChild(td);
-             
+            tr.appendChild(td); 
         }
         table.appendChild(tr);
     }
