@@ -1,12 +1,12 @@
 <div id="navi">
             <p>Willkommen <?php echo htmlentities($_SESSION['username']); ?>!</p>
             <p>
-                This is an example protected page.  To access this page, users
+                <!--This is an example protected page.  To access this page, users
                 must be logged in.  At some stage, we'll also check the role of
                 the user, so pages will be able to determine the type of user
-                authorised to access the page.
+                authorised to access the page. -->
             </p>
-  <ul>
+  <ul id="navigation">
   <li><a href="?">Veranstaltungen</a></li>
   <li><a href="?page=profile">Profil</a></li>
   <li><a href="?page=events">Eigene Veranstaltungen</a></li>
