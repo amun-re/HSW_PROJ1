@@ -5,9 +5,10 @@ window.onload = function () {
     "use strict";
     var d = new Date();
     initKalender(d);
-    
+}
     function initKalender(d){
-    var month_name = ["Januar", "Februar", "März", "April", "Mai", "Juni", "Juli", "Juni", "August", "September", "Oktber", "November", "Dezember"];
+    var month_name_ger = ["Januar", "Februar", "März", "April", "Mai", "Juni", "Juli", "August", "September", "Oktber", "November", "Dezember"];
+    var month_name = ['January','February','March','April','May','June','July','August','September','October','November','December'];
     var day_name = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"];
     var wochentage = ["Montag", "Dienstag", "Mittwoch", "Donnerstag", "Freitag", "Samstag", "Sonntag"];
     var month = d.getMonth();
@@ -18,7 +19,7 @@ window.onload = function () {
     var day_number = day_name.indexOf(first_date_name_day);
     var current_day_number = day_name.indexOf((new Date(month_name[month] + " " + d.getDate() + " " + year).toDateString()).substring(0, 3));
     var last_date_day = new Date(year, month+1, 0).getDate();
-    document.getElementById("kalender_kopf_inhalt").innerHTML = month_name[month]+ " " + year;
+    document.getElementById("kalender_kopf_inhalt").innerHTML = month_name_ger[month]+ " " + year;
     
 	var dmonth = getZeroDate(d.getMonth()+1);
 	var day = getZeroDate(d.getDate());
@@ -27,9 +28,10 @@ window.onload = function () {
 	getAllEvents(year + "-" + dmonth);
 	var eventDates = parseEventDates(html_data);
 	var kalender_table = getKalenderTable(day_number, last_date_day,d, wochentage, eventDates);
+    document.getElementById("kalender_bauch").removeChild(document.getElementById("kalender_bauch").firstChild);
     document.getElementById("kalender_bauch").appendChild(kalender_table);
         
-    initButtons(document.getElementById("pfeil_back"), document.getElementById("pfeil_for"));
+    initButtons(document.getElementById("pfeil_back"), document.getElementById("pfeil_for"), month, year);
     
     setText('calendar-day',wochentage[current_day_number]);
     setText('calendar-date', d.getDate());
@@ -37,7 +39,7 @@ window.onload = function () {
     getData(fulldate);
 	//setText('calendar-eventtext', "Keine Veranstaltungen");
 }
-}
+
 // Nummer des ersten Tages des aktuellen Monats, Anzahl der Tage des aktuellen Monats
 function getKalenderTable(day_number, last_date_day,d,wochentage, eventDates){
 	var table = document.createElement("table");
@@ -293,11 +295,17 @@ function f_mouseout(onmouseout){
     this.className ="normal";
 }
 
-function initButtons (pfeil_b, pfeil_f){
+function initButtons (pfeil_b, pfeil_f, month, year){
+    pfeil_f.setAttribute("currentMonth", month);
+    pfeil_f.setAttribute("currentYear", year);
+    pfeil_b.setAttribute("currentMonth", month);
+    pfeil_b.setAttribute("currentYear", year);
     pfeil_b.onmouseover = b_mouseover;
     pfeil_b.onmouseout = b_mouseout;
     pfeil_f.onmouseout = b_mouseout;
     pfeil_f.onmouseover = b_mouseover;
+    pfeil_f.onclick = b_f_mouseclick;
+    pfeil_b.onclick = b_b_mouseclick;
 }
 
 function b_mouseover(onmouseover){
@@ -306,3 +314,30 @@ function b_mouseover(onmouseover){
 function b_mouseout(onmouseout){
     this.className = "b_normal";
 }
+function b_f_mouseclick(onclick){
+    var month = parseInt(this.getAttribute("currentMonth"));
+    var year = parseInt(this.getAttribute("currentYear"));
+    var ret_d; 
+    if(month>=11){
+       ret_d = new Date(year+1,0,1);
+    }else{
+        ret_d = new Date(year, month+1, 1);
+    }
+    console.log(ret_d);
+    initKalender(ret_d);
+}
+function b_b_mouseclick(onclick){
+    var month = parseInt(this.getAttribute("currentMonth"));
+    var year = parseInt(this.getAttribute("currentYear"));
+    var ret_d; 
+    if(month<=0){
+       ret_d = new Date(year-1,11,1);
+    }else{
+        ret_d = new Date(year, month-1, 1);
+    }
+    console.log(ret_d);
+    initKalender(ret_d);
+}
+
+
+
