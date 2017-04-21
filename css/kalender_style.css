@@ -150,14 +150,17 @@ p{
 
 
 
-#usedCol{background-color: #A4A4A4;}
+#usedSide{background-color: #A4A4A4;}
 #navigation {text-align: left; padding-bottom: 10px;padding-top: 10px; margin-left: auto;margin-right: auto; letter-spacing: 1px;
 list-style: none;border-spacing: 10px; font-size: 20px;
 }
 #navigation>li{
      margin-bottom: 5px;
 }
-a:link {text-decoration: none; color: black;}
-a:visited {text-decoration: none; color: black;}
-a:hover {text-decoration: none; background-color: #A4A4A4; display: block}
-a:active {text-decoration: none; background-color: #A4A4A4; }
+#navigation>li> a{
+    
+}
+#navigation>li> a:link {text-decoration: none; color: black; display: block; }
+#navigation>li> a:visited {text-decoration: none; color: black;}
+#navigation>li> a:hover {text-decoration: none; background-color: #A4A4A4; display: block}
+#navigation>li> a:active {text-decoration: none; background-color: #A4A4A4; }

@@ -7,7 +7,7 @@
                 authorised to access the page. -->
             </p>
   <ul id="navigation">
-  <li><a href="?">Veranstaltungen</a></li>
+  <li><a href="?" id="usedSide">Veranstaltungen</a></li>
   <li><a href="?page=profile">Profil</a></li>
   <li><a href="?page=events">Eigene Veranstaltungen</a></li>
   <li><a href="?page=invites">Meine Einladungen</a></li>

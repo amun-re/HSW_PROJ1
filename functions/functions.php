@@ -1,4 +1,4 @@
-<?php
+ï»¿<?php
 function sec_session_start() {
     $session_name = 'sec_session_id';   // vergib einen Sessionnamen
     $secure = SECURE;
@@ -19,7 +19,7 @@ function sec_session_start() {
     // Setzt den Session-Name zu oben angegebenem.
     session_name($session_name);
     session_start();            // Startet die PHP-Sitzung 
-    session_regenerate_id();    // Erneuert die Session, löscht die alte. 
+    session_regenerate_id();    // Erneuert die Session, lÃ¶scht die alte. 
 }
 
 function login($email, $password, $mysqli) {
@@ -29,7 +29,7 @@ function login($email, $password, $mysqli) {
        WHERE email = ?
         LIMIT 1")) {
         $stmt->bind_param('s', $email);  // Bind "$email" to parameter.
-        $stmt->execute();    // Führe die vorbereitete Anfrage aus.
+        $stmt->execute();    // FÃ¼hre die vorbereitete Anfrage aus.
         $stmt->store_result();
  
         // hole Variablen von result.
@@ -39,7 +39,7 @@ function login($email, $password, $mysqli) {
         // hash das Passwort mit dem eindeutigen salt.
         $password = hash('sha512', $password . $salt);
         if ($stmt->num_rows == 1) {
-            // Wenn es den Benutzer gibt, dann wird überprüft ob das Konto
+            // Wenn es den Benutzer gibt, dann wird Ã¼berprÃ¼ft ob das Konto
             // blockiert ist durch zu viele Login-Versuche 
  
             if (checkbrute($user_id, $mysqli) == true) {
@@ -47,8 +47,8 @@ function login($email, $password, $mysqli) {
                 // Schicke E-Mail an Benutzer, dass Konto blockiert ist
                 return false;
             } else {
-                // Überprüfe, ob das Passwort in der Datenbank mit dem vom
-                // Benutzer angegebenen übereinstimmt.
+                // ÃœberprÃ¼fe, ob das Passwort in der Datenbank mit dem vom
+                // Benutzer angegebenen Ã¼bereinstimmt.
                 if ($db_password == $password) {
                     // Passwort ist korrekt!
                     // Hole den user-agent string des Benutzers.
@@ -85,7 +85,7 @@ function checkbrute($user_id, $mysqli) {
     // Hole den aktuellen Zeitstempel 
     $now = time();
  
-    // Alle Login-Versuche der letzten zwei Stunden werden gezählt.
+    // Alle Login-Versuche der letzten zwei Stunden werden gezÃ¤hlt.
     $valid_attempts = $now - (2 * 60 * 60);
  
     if ($stmt = $mysqli->prepare("SELECT time 
@@ -94,7 +94,7 @@ function checkbrute($user_id, $mysqli) {
                             AND time > '$valid_attempts'")) {
         $stmt->bind_param('i', $user_id);
  
-        // Führe die vorbereitet Abfrage aus. 
+        // FÃ¼hre die vorbereitet Abfrage aus. 
         $stmt->execute();
         $stmt->store_result();
  
@@ -108,7 +108,7 @@ function checkbrute($user_id, $mysqli) {
 }
 
 function login_check($mysqli) {
-    // Überprüfe, ob alle Session-Variablen gesetzt sind 
+    // ÃœberprÃ¼fe, ob alle Session-Variablen gesetzt sind 
     if (isset($_SESSION['user_id'], 
                         $_SESSION['username'], 
                         $_SESSION['login_string'])) {
@@ -187,7 +187,7 @@ function esc_url($url) {
 }
 function getProfile($mysqli)
 {
-	// Überprüfe, ob alle Session-Variablen gesetzt sind 
+	// ÃœberprÃ¼fe, ob alle Session-Variablen gesetzt sind 
     if (isset($_SESSION['user_id'], 
                         $_SESSION['username'], 
                         $_SESSION['login_string'])) {
