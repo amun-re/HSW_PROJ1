@@ -322,8 +322,7 @@ function b_f_mouseclick(onclick){
        ret_d = new Date(year+1,0,1);
     }else{
         ret_d = new Date(year, month+1, 1);
-    }
-    console.log(ret_d);
+    } 
     initKalender(ret_d);
 }
 function b_b_mouseclick(onclick){
@@ -335,7 +334,6 @@ function b_b_mouseclick(onclick){
     }else{
         ret_d = new Date(year, month-1, 1);
     }
-    console.log(ret_d);
     initKalender(ret_d);
 }
 
