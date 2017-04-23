@@ -60,7 +60,13 @@ function getKalenderTable(day_number, last_date_day,d,wochentage, eventDates){
             break;
         }
         var td = document.createElement("td");
-        td.innerHTML = "";
+        td.innerHTML = "<font color = \"grey\">" + new Date(d.getFullYear(),d.getMonth(),0-(day_number-i)+1).getDate() + "</font>";
+       td.setAttribute("currentMonth", d.getMonth());
+                td.setAttribute("currentYear", d.getFullYear());
+                td.setAttribute("GoalDay", (new Date(d.getFullYear(),d.getMonth(),0-(day_number-i)+1).getDate()));
+                td.onmouseover = f_mouseover;
+                td.onmouseout = f_mouseout;
+                td.onclick = b_b_mouseclick;
         tr.appendChild(td);
     }
     var day_counter = 1;
@@ -73,10 +79,14 @@ function getKalenderTable(day_number, last_date_day,d,wochentage, eventDates){
         td.onmouseout = f_mouseout;
 		
         if(day_counter == d.getDate()){  
-            td.innerHTML = "<b><font color=\"blue\">" + day_counter + "</font></b>";
+            td.innerHTML =  day_counter;
                 td.className ="spezial";
                 td.onmouseout = null;
             }
+        else if(contains(eventDates,fulldate))
+			{
+				td.innerHTML = "<b><font color=\"red\">" + day_counter + "</font></b>";
+			}
             else{
                 td.innerHTML = day_counter;
             }
@@ -97,8 +107,19 @@ function getKalenderTable(day_number, last_date_day,d,wochentage, eventDates){
 			var fulldate = d.getFullYear() + "-" + month + "-" + day;
 			
             if(day_counter > last_date_day){
-                table.appendChild(tr);
-            return table;
+               /* table.appendChild(tr);
+            return table; */
+                var td = document.createElement("td");
+                td.innerHTML = "<font color =\"grey\">" + (day_counter-last_date_day) + "</font>";
+                td.setAttribute("currentMonth", d.getMonth());
+                td.setAttribute("currentYear", d.getFullYear());
+                td.setAttribute("GoalDay", (day_counter-last_date_day));
+                td.onmouseover = f_mouseover;
+                td.onmouseout = f_mouseout;
+                td.onclick = b_f_mouseclick;
+                day_counter++;
+            tr.appendChild(td); 
+                continue;
             }
             var td = document.createElement("td");
             td.onclick = f_click;
@@ -106,7 +127,7 @@ function getKalenderTable(day_number, last_date_day,d,wochentage, eventDates){
             td.onmouseout = f_mouseout;
             
 			if(day_counter == d.getDate()){  
-            td.innerHTML = "<b><font color=\"blue\">" + day_counter + "</font></b>";
+            td.innerHTML = day_counter;
                 td.className ="spezial";
                 td.onmouseout = null;
             }
@@ -298,8 +319,10 @@ function f_mouseout(onmouseout){
 function initButtons (pfeil_b, pfeil_f, month, year){
     pfeil_f.setAttribute("currentMonth", month);
     pfeil_f.setAttribute("currentYear", year);
+    pfeil_f.setAttribute("GoalDay", 1);
     pfeil_b.setAttribute("currentMonth", month);
     pfeil_b.setAttribute("currentYear", year);
+    pfeil_b.setAttribute("GoalDay", 1);
     pfeil_b.onmouseover = b_mouseover;
     pfeil_b.onmouseout = b_mouseout;
     pfeil_f.onmouseout = b_mouseout;
@@ -317,22 +340,24 @@ function b_mouseout(onmouseout){
 function b_f_mouseclick(onclick){
     var month = parseInt(this.getAttribute("currentMonth"));
     var year = parseInt(this.getAttribute("currentYear"));
+    var day = parseInt(this.getAttribute("GoalDay"));
     var ret_d; 
     if(month>=11){
-       ret_d = new Date(year+1,0,1);
+       ret_d = new Date(year+1,0,day);
     }else{
-        ret_d = new Date(year, month+1, 1);
+        ret_d = new Date(year, month+1, day);
     } 
     initKalender(ret_d);
 }
 function b_b_mouseclick(onclick){
     var month = parseInt(this.getAttribute("currentMonth"));
     var year = parseInt(this.getAttribute("currentYear"));
+    var day = parseInt(this.getAttribute("GoalDay"));
     var ret_d; 
     if(month<=0){
-       ret_d = new Date(year-1,11,1);
+       ret_d = new Date(year-1,11,day);
     }else{
-        ret_d = new Date(year, month-1, 1);
+        ret_d = new Date(year, month-1, day);
     }
     initKalender(ret_d);
 }
