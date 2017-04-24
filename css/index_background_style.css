@@ -6,7 +6,6 @@ html {
   background-size: cover;
   background: url("../img/IMG3546.jpg") no-repeat center center fixed;
   background-blend-mode: darken;
-  // blend mode optional at this stage; will be used more in the next demo.
   transition: 3s;
 }
 body { margin: 0; }

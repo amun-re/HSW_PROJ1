@@ -16,7 +16,10 @@ if (login_check($mysqli) == true) {
 				?><script>alert("Error logging in!");</script><?php
 		}
 		?>
-		<div style="margin-top:100px; width:680px; height:440px; margin-right:auto; margin-left:auto; background-color:transparent">
+		<div style="margin-top:100px; width:680px; margin-right:auto; margin-left:auto; background-color:transparent;">
+		
+		</div>
+		<div id="navigation" style="margin-top:100px; width:680px; height:460px; margin-right:auto; margin-left:auto; background-color:transparent">
 			<?php
 			include 'kalender_template.php';
 			?>

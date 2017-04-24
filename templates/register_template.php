@@ -8,6 +8,9 @@
         <link rel="stylesheet" href="styles/main.css" />
     </head>
     <body>
+		<div style="margin:auto">
+			<marquee style="height:300px"><img src="../img/IMG3546.jpg"> <img src="../img/congresscenter-gallery-10-12048e.jpg"> <img src="../img/maxresdefault.jpg"> <img src="../img/party-05.jpg"> <img src="../img/weihnachtsmarkt-gendarmenmarkt_1416311653-1920x1080.jpg"></marquee>
+		</div>
         <!-- Anmeldeformular für die Ausgabe, wenn die POST-Variablen nicht gesetzt sind
         oder wenn das Anmelde-Skript einen Fehler verursacht hat. -->
         <h1>Register with us</h1>
