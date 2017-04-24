@@ -22,7 +22,7 @@
 						echo $error_msg;
 					}
 					?>
-					<div style="float:left; margin-left: 10px">
+					<div style="float:left; margin-left: 200px">
 						<form action="<?php echo esc_url($_SERVER['PHP_SELF']); ?>" method="post" name="registration_form">
 							<table>
 								<tr>
@@ -45,7 +45,7 @@
 						</form>
 						<p>Return to the <a href="index.php">login page</a>.</p>
 					</div>
-					<div id="information-container" style="float:right; margin-right:10px; text-align:left">
+					<div id="information-container" style="float:right; margin-right:200px; text-align:left">
 						<ul>
 							<li>Benutzernamen dürfen nur Ziffern, Groß- und Kleinbuchstaben und Unterstriche enthalten.</li>
 							<li>E-Mail-Adressen müssen ein gültiges Format haben.</li>
