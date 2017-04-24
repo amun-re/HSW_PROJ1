@@ -9,4 +9,5 @@
 		<script type="text/JavaScript" src="../js/kalender_script.js"></script>
 		<link type="text/css" rel="stylesheet" href="../css/index_background_style.css">
 		<link type="text/css" rel="stylesheet" href="../css/kalender_style.css">
+        <link type="text/css" rel="stylesheet" href="../css/login_template_style.css">
     </head>

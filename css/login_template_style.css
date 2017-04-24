@@ -1,0 +1,36 @@
+#inhalt_container{
+    margin-top:100px; 
+    width:940px; 
+    height:460px; 
+    background-color:transparent;
+    text-align: left;
+    padding-bottom: 10px;
+    padding-top: 10px;
+    margin-left: auto;
+    margin-right: auto;
+    letter-spacing: 1px;
+    border-spacing: 10px;
+    font-size: 20px;
+}
+
+#left_container{
+    float: left;
+    width: 20%;
+    height: 450px;
+	margin-left: 25%;
+	margin-right: auto;
+    color: black;
+    border-radius: 10px;
+    border: 1px solid #eee;
+    box-shadow: 0 4px 4px 0 rgba(50, 50, 50, 0.4);
+    display: inline-block;
+    margin: 0  20px;
+    background-image: linear-gradient(#fff,#d3d3d3);
+    font-family: 'Trebuchet MS', Helvita, sans-serif;
+    font-size: 17px;
+     padding: 10px;
+}
+
+#login_button{
+    margin-top:3%;
+}

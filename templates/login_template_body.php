@@ -16,23 +16,19 @@ if (login_check($mysqli) == true) {
 				?><script>alert("Error logging in!");</script><?php
 		}
 		?>
-		<div style="margin-top:100px; width:680px; margin-right:auto; margin-left:auto; background-color:transparent;">
+	
+		<div id="inhalt_container">
 		
-		</div>
-		<div id="navigation" style="margin-top:100px; width:680px; height:460px; margin-right:auto; margin-left:auto; background-color:transparent">
-			<?php
-			include 'kalender_template.php';
-			?>
-		</div>
-		<div style="width:530px; margin-right:auto; margin-left:auto; margin-top:20px; text-align:center; padding:5px; background-image:linear-gradient(#fff,#d3d3d3);">
+		<div id="left_container">
 			<form action="process_login.php" method="post" name="login_form">                      
-				Email: <input type="text" name="email" />
-				Password: <input type="password" 
+				Email: <br><input type="text" name="email" />
+				Password:<br> <input type="password" 
 								name="password" 
 								id="password"/>
-				<input type="button" 
+			<div id="login_button">	<input type="button"
 					value="Login" 
-					onclick="formhash(this.form, this.form.password);" /> 
+					onclick="formhash(this.form, this.form.password);"/> 
+                </div>
 			</form>
 			<p>You are currently logged <?php echo $logged ?>.
 			<?php
@@ -42,9 +38,13 @@ if (login_check($mysqli) == true) {
 				<?php
 			} else {
 				?>
-				If you are done, please <a href="logout.php">log out</a>.</p>
+				If you are done, please <a href="logout.php">log out</a>.
 				<?php
 			}
 			?>
 		</div>
+        <?php
+			include 'kalender_template.php';
+			?>
+        </div>
     </body>
