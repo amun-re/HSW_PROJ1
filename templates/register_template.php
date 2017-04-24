@@ -5,12 +5,14 @@
         <title>Secure Login: Registration Form</title>
         <script type="text/JavaScript" src="js/sha512.js"></script> 
         <script type="text/JavaScript" src="js/forms.js"></script>
-        <link rel="stylesheet" href="styles/main.css" />
+        <!--<link rel="stylesheet" href="styles/main.css" />-->
     </head>
     <body>
-		<div style="margin:auto">
-			<marquee style="height:300px"><img src="../img/IMG3546.jpg"> <img src="../img/congresscenter-gallery-10-12048e.jpg"> <img src="../img/maxresdefault.jpg"> <img src="../img/party-05.jpg"> <img src="../img/weihnachtsmarkt-gendarmenmarkt_1416311653-1920x1080.jpg"></marquee>
+	<div style="margin-top:0px; position:absolute; top:0; left:0">
+		<div style="background-color:yellow; height:350px;">
+			<marquee style="height:300px; margin-top:25px" behavior="alternate"><img src="../img/kitchen300px.jpg"> <img src="../img/congresscenter300px.jpg"> <img src="../img/messe300px.jpg"> <img src="../img/party300px.jpg"> <img src="../img/weihnachtsmarkt300px.jpg"></marquee>
 		</div>
+		<div style="margin-left:50px; border:20px solid>
         <!-- Anmeldeformular für die Ausgabe, wenn die POST-Variablen nicht gesetzt sind
         oder wenn das Anmelde-Skript einen Fehler verursacht hat. -->
         <h1>Register with us</h1>
@@ -54,5 +56,7 @@
                                    this.form.confirmpwd);" /> 
         </form>
         <p>Return to the <a href="index.php">login page</a>.</p>
+		</div>
+	</div>
     </body>
 </html>
