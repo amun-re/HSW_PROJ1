@@ -99,7 +99,7 @@ function getKalenderTable(day_number, last_date_day,d,wochentage, eventDates){
     table.appendChild(tr);
     
     //Restliche Zeilen
-    for(var z = 3; z<=6; z++){
+    for(var z = 3; z<=7; z++){
         tr = document.createElement("tr");
         for(var i = 0; i<=6; i++){
 			var day = getZeroDate(day_counter);

@@ -3,7 +3,7 @@
 	float:left;
     padding  10px;
     width:  500px;
-    height: 450px;
+    height: 505px;
    /* margin-left: 25%;*/
     margin-right: auto;
     text-align: center;
@@ -19,7 +19,7 @@
    float:left; 
     padding  10px;
     width:  500px;
-    height: 450px;
+    height: 505px;
     margin-left: auto;
     margin-right: auto;
     text-align: center;
@@ -89,7 +89,7 @@ p{
 #calendar3{
     float: left; 
      width: 130px;
-    height: 450px;
+    height: 505px;
     color: #fff;
     border-radius: 10px;
     border: 1px solid #eee;
@@ -133,7 +133,7 @@ p{
 #navi{
     float: left;
     width: 18%;
-    height: 450px;
+    height: 505px;
 	margin-left: 25%;
 	margin-right: auto;
     color: #fff;

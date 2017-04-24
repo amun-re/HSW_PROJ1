@@ -1,7 +1,7 @@
 #inhalt_container{
     margin-top:100px; 
     width:940px; 
-    height:460px; 
+    height:510px; 
     background-color:transparent;
     text-align: left;
     padding-bottom: 10px;
@@ -16,7 +16,7 @@
 #left_container{
     float: left;
     width: 20%;
-    height: 450px;
+    height: 505px;
 	margin-left: 25%;
 	margin-right: auto;
     color: black;
