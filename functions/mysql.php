@@ -6,7 +6,7 @@ error_reporting(E_ALL);
 define("HOST", "localhost");     // Der Host mit dem du dich verbinden willst.
 define("USER", "root");    // Der Datenbank-Benutzername. 
 define("PASSWORD", "");    // Das Datenbank-Passwort. 
-define("DATABASE", "users");    // Der Datenbankname.
+define("DATABASE", "hswproj1");    // Der Datenbankname.
  
 define("CAN_REGISTER", "any");
 define("DEFAULT_ROLE", "member");

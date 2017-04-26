@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Erstellungszeit: 20. Apr 2017 um 13:02
+-- Erstellungszeit: 26. Apr 2017 um 09:46
 -- Server-Version: 10.1.21-MariaDB
 -- PHP-Version: 5.6.30
 
@@ -17,7 +17,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Datenbank: `users`
+-- Datenbank: `hswproj1`
 --
 
 -- --------------------------------------------------------
@@ -75,15 +75,6 @@ CREATE TABLE `login_attempts` (
   `time` varchar(30) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
---
--- Daten für Tabelle `login_attempts`
---
-
-INSERT INTO `login_attempts` (`user_id`, `time`) VALUES
-(0, '1492671999'),
-(0, '1492672202'),
-(1, '1492679105');
-
 -- --------------------------------------------------------
 
 --
@@ -126,25 +117,38 @@ CREATE TABLE `participants` (
 -- Indizes für die Tabelle `events`
 --
 ALTER TABLE `events`
-  ADD PRIMARY KEY (`id`);
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `id` (`id`),
+  ADD KEY `location` (`location`);
 
 --
 -- Indizes für die Tabelle `locations`
 --
 ALTER TABLE `locations`
-  ADD PRIMARY KEY (`id`);
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `id` (`id`);
+
+--
+-- Indizes für die Tabelle `login_attempts`
+--
+ALTER TABLE `login_attempts`
+  ADD PRIMARY KEY (`user_id`),
+  ADD KEY `user_id` (`user_id`);
 
 --
 -- Indizes für die Tabelle `members`
 --
 ALTER TABLE `members`
-  ADD PRIMARY KEY (`id`);
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `id` (`id`);
 
 --
 -- Indizes für die Tabelle `participants`
 --
 ALTER TABLE `participants`
-  ADD PRIMARY KEY (`event`,`user`);
+  ADD PRIMARY KEY (`event`,`user`),
+  ADD KEY `event` (`event`),
+  ADD KEY `user` (`user`);
 
 --
 -- AUTO_INCREMENT für exportierte Tabellen
@@ -165,6 +169,29 @@ ALTER TABLE `locations`
 --
 ALTER TABLE `members`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+--
+-- Constraints der exportierten Tabellen
+--
+
+--
+-- Constraints der Tabelle `locations`
+--
+ALTER TABLE `locations`
+  ADD CONSTRAINT `locations_ibfk_1` FOREIGN KEY (`id`) REFERENCES `events` (`location`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Constraints der Tabelle `login_attempts`
+--
+ALTER TABLE `login_attempts`
+  ADD CONSTRAINT `login_attempts_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `members` (`id`);
+
+--
+-- Constraints der Tabelle `participants`
+--
+ALTER TABLE `participants`
+  ADD CONSTRAINT `participants_ibfk_1` FOREIGN KEY (`event`) REFERENCES `events` (`id`),
+  ADD CONSTRAINT `participants_ibfk_2` FOREIGN KEY (`user`) REFERENCES `members` (`id`);
+
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
