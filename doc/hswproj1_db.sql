@@ -87,15 +87,16 @@ CREATE TABLE `members` (
   `email` varchar(50) NOT NULL,
   `password` char(128) NOT NULL,
   `salt` char(128) NOT NULL
+  `age` int(4) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Daten für Tabelle `members`
 --
 
-INSERT INTO `members` (`id`, `username`, `email`, `password`, `salt`) VALUES
-(1, 'kuhnke', 'sdf@web.de', '04e7dd2d2fb13430183c6b7f39e62527d0ba05584e1a2de290d314200d83e8ac62121ec33382d35c3a75a88467899dd111b5a153ed9344fe40daadfe31db1c16', '76318990e9a5f60c352a9ef018fb77a97cd578bff188b4cb4f503a7bcb0e0941c114dc6d7fa8e1448161df66ac08f78778112c85da8407db2f1db02b30c5c6d0'),
-(2, 'test', 'test2@web.de', '1a52fd055045650c86710030c0b7a22812f08f6162cc4e08724bab7e694d89719d8c9bdf63b9c8a817cef4c79e519914b837e2e164a8e1e365bb0e99eee34cac', '0964adfcb1b56532e4b13d750f10e2da2553692797a4dd64edf090a0603e46ab53b9a2a0e0a10ac15f005e2fca46c6316b044d6dd5e4c55166c23c1e265265cf');
+INSERT INTO `members` (`id`, `username`, `email`, `password`, `salt`, `age`) VALUES
+(1, 'kuhnke', 'sdf@web.de', '04e7dd2d2fb13430183c6b7f39e62527d0ba05584e1a2de290d314200d83e8ac62121ec33382d35c3a75a88467899dd111b5a153ed9344fe40daadfe31db1c16', '76318990e9a5f60c352a9ef018fb77a97cd578bff188b4cb4f503a7bcb0e0941c114dc6d7fa8e1448161df66ac08f78778112c85da8407db2f1db02b30c5c6d0', '26'),
+(2, 'test', 'test2@web.de', '1a52fd055045650c86710030c0b7a22812f08f6162cc4e08724bab7e694d89719d8c9bdf63b9c8a817cef4c79e519914b837e2e164a8e1e365bb0e99eee34cac', '0964adfcb1b56532e4b13d750f10e2da2553692797a4dd64edf090a0603e46ab53b9a2a0e0a10ac15f005e2fca46c6316b044d6dd5e4c55166c23c1e265265cf', '21');
 
 -- --------------------------------------------------------
 

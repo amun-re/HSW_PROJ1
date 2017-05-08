@@ -5,13 +5,13 @@ $user_id = $_SESSION['user_id'];
 $username = $_SESSION['username'];
 $todaydate = date("d.m.Y",time());
 $error_msg = "";
-function myEvents($mysqli) {
+function myEvents($mysqli, $username2) {
 	if ($stmt = $mysqli->prepare("SELECT * FROM events WHERE creator = ?"))
 	{
-		 $stmt->bind_param('s', $user_id);  // Bind "$user_id" to parameter.
+		 $stmt->bind_param('s', $username2);  // Bind "$username" to parameter.
 		 $stmt->execute();    // Führe die vorbereitete Anfrage aus.
 		 $stmt->store_result();
-		 
+		 		 
 		 // hole Variablen von result.
 		 $stmt->bind_result($id, $name, $description, $public, $date, $creator, 
 							$location, $price, $bdate, $edate, $min_age);
@@ -30,31 +30,29 @@ function myEvents($mysqli) {
 		</tr>";
 			while ($row = $stmt->fetch()) 
 			{
-			echo "<tr>";
-			echo "<td>" . $name . "</td>";
-			echo "<td>" . $description	 . "</td>";
-			echo "<td>" . $public . "</td>";
-			echo "<td>" . $date. "</td>";
-			echo "<td>" . $creator. "</td>";
-			echo "<td>" . $location. "</td>";
-			echo "<td>" . $price. "</td>";
-			echo "<td>" . $bdate. "</td>";
-			echo "<td>" . $edate. "</td>";
-			echo "<td>" . $min_age. "</td>";
-			echo "</tr>";
+				echo "<tr>";
+				echo "<td>" . $name . "</td>";
+				echo "<td>" . $description	 . "</td>";
+				echo "<td>" . $public . "</td>";
+				echo "<td>" . $date. "</td>";
+				echo "<td>" . $creator. "</td>";
+				echo "<td>" . $location. "</td>";
+				echo "<td>" . $price. "</td>";
+				echo "<td>" . $bdate. "</td>";
+				echo "<td>" . $edate. "</td>";
+				echo "<td>" . $min_age. "</td>";
+				echo "</tr>";
 			}
-		echo "</table>";
-		}
-		else
-		{
+			echo "</table>";
+		} else {
 			echo $mysqli->error;
 		}
 }
 	
-function myInvites($mysqli) {
+function myInvites($mysqli, $username2) {
 	if ($stmt = $mysqli->prepare("SELECT * FROM participants where user = ?"))
 	{
-		 $stmt->bind_param('s', $user_id);  // Bind "$user_id" to parameter.
+		 $stmt->bind_param('s', $username2);  // Bind "$user_id" to parameter.
 		 $stmt->execute();    // Führe die vorbereitete Anfrage aus.
 		 $stmt->store_result();
 		 
@@ -79,15 +77,15 @@ function myInvites($mysqli) {
 			echo $mysqli->error;
 		}
 }
-if(isset($_POST['eventname'], $_POST['description'], $_POST['publicity'], $_POST['eventdate'], $_POST['location'], $_POST['price'], $_POST['bdate'], $_POST['edate'], $_POST['min_age'])){
+if(isset($_POST['eventname'], $_POST['description'], $_POST['eventdate'], $_POST['location'], $_POST['price'], $_POST['bdate'], $_POST['edate'], $_POST['min_age'])){
 	if ($stmt = $mysqli->prepare("INSERT INTO events (name, description, public, date, creator, location, price, bdate, edate, min_age) VALUES ( ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)"))
 	{
 		 $eventname = filter_input(INPUT_POST, 'eventname', FILTER_SANITIZE_STRING);
 		 $description = filter_input(INPUT_POST, 'description', FILTER_SANITIZE_STRING);
-		 if($_POST['publicity'] == "on") {
-			 $publicity = 1;
-		 } else {
+		 if(!isset($_POST['publicity'])) {
 			 $publicity = 0;
+		 } else {
+			 $publicity = 1;
 		 }
 		 $eventdate = filter_input(INPUT_POST, 'eventdate', FILTER_SANITIZE_STRING);
 		 $location = filter_input(INPUT_POST, 'location', FILTER_SANITIZE_STRING);
@@ -97,15 +95,14 @@ if(isset($_POST['eventname'], $_POST['description'], $_POST['publicity'], $_POST
 		 $min_age = filter_input(INPUT_POST, 'min_age', FILTER_SANITIZE_STRING);
 		 $stmt->bind_param('ssdssddssd', $eventname, $description, $publicity, $eventdate, $username, $location, $price, $bdate, $edate, $min_age);  // Bind inputs to parameter.
 		 $stmt->execute();
-		 echo("Statement failed: ". $stmt->error . "<br>");
-		 //if (! $stmt->execute()) {
-              //  $error_msg .= '<p class="error">Es ist ein Fehler beim Erstellen des Events aufgetreten.</p>';
-            //} else {
-			//	echo 'Event erfolgreich erstellt.';
-			//} 
-	}
-	else
+		 if (! $stmt->execute()) {
+                $error_msg .= '<p class="error">Es ist ein Fehler beim Erstellen des Events aufgetreten.</p>';
+            } else {
+				echo 'Event erfolgreich erstellt.';
+			} 
+	} else {
 		echo("Statement failed: ". $stmt->error . "<br>");
+	}
 	
 }
 ?>

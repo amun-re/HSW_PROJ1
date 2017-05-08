@@ -8,7 +8,7 @@ if (!empty($error_msg)) {
  <div id="content">
             <p class="content-head"><?php echo htmlentities($_SESSION['username']); ?>s Einladungen</p>
             <p class="calendar-eventtext"></p>
-			<p class="myInvites"> <?php myInvites($mysqli); ?></p>
+			<p class="myInvites"> <?php myInvites($mysqli, $_SESSION['username']); ?></p>
 			
 </div>
 <?php

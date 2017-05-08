@@ -8,7 +8,7 @@ if (!empty($error_msg)) {
  <div id="content">
             <p class="content-head"><?php echo htmlentities($_SESSION['username']); ?>s Events</p>
             <p class="calendar-eventtext"></p>
-			<p class="myEvent"> <?php myEvents($mysqli); ?></p>
+			<p class="myEvent"> <?php myEvents($mysqli, $_SESSION['username']); ?></p>
 			<form name="newEvent_form" action="<?php echo esc_url($_SERVER['PHP_SELF']); ?>?page=events" method="POST">
 			Eventname <input type="text" name="eventname"><br>
 			Beschreibung <input type="text" name="description"></input><br>
