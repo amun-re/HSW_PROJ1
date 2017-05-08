@@ -239,9 +239,9 @@ function getPageFunctions($string)
 		case "profile":
 			return "functions/profile.inc.php";
 		case "events":
-			return ""; //"templates/event_template.php";
+			return "functions/event.func.php";
 		case "invites":
-			return ""; //"templates/event_template.php";
+			return "functions/event.func.php";
 		break;		
 		default:
 			return "";
@@ -256,7 +256,7 @@ function getTemplate($string)
 		case "events":
 			return "templates/event_template.php";
 		case "invites":
-			return "templates/event_template.php";
+			return "templates/invite_template.php";
 		break;		
 		default:
 			return "templates/kalender_template.php";

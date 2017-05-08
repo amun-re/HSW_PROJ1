@@ -160,3 +160,15 @@ function profileFormChgPw(form, password, passwordNew, conf) {
     form.submit();
     return true;
 }
+
+function createEvent(form, eventname, description, publicity, location, price, bdate, edate, min_age) {
+	
+	if(eventname.value == "" || bdate.value == "" || edate.value == "") {
+		alert("You must provide a name, startdate and enddate. Please try again.");
+		return false;
+	}
+	
+	
+	form.submit();
+	return true;
+}

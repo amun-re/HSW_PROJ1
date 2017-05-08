@@ -8,7 +8,7 @@ include "templates/overview_template_head.php";
 $login = login_check($mysqli);
 if ($login) 
 {
-	echo "<body>";
+	echo '<body><div>';
 	
 	include "templates/overview_template_body.php";
 	$page = "";
@@ -20,7 +20,7 @@ if ($login)
 	$dataArray = getPageData($page,$mysqli);
 	if($pageFunc != "") include getPageFunctions($page);
 	include getTemplate($page);
-	echo "</body>";
+	echo "</div></body>";
 }
 else
 {
