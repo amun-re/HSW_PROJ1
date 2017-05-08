@@ -7,7 +7,7 @@ if (!empty($error_msg)) {
 ?>
  <div id="content">
             <p class="content-head"><?php echo htmlentities($_SESSION['username']); ?>s Einladungen</p>
-<<<<<<< HEAD
+
 			<table border=1>
 			<tr>
 			<th>Event</th>
@@ -16,10 +16,6 @@ if (!empty($error_msg)) {
 			<th>Ende</th>
 			<th>Status</th>
 			</tr>
-=======
-            <p class="calendar-eventtext"></p>
-			<p class="myInvites"> <?php myInvites($mysqli, $_SESSION['username']); ?></p>
->>>>>>> origin/master
 			
 			<?php foreach($dataArray as $row) { ?>
 			
