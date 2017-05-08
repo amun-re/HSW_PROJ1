@@ -1,9 +1,11 @@
 <?php
 include_once 'mysql.php';
 include_once 'functions.php';
+print_r ($_POST);
 $user_id = $_SESSION['user_id'];
 $username = $_SESSION['username'];
 $todaydate = date("d.m.Y",time());
+$error_msg = "";
 function myEvents($mysqli) {
 	if ($stmt = $mysqli->prepare("SELECT * FROM events WHERE creator = ?"))
 	{
@@ -79,14 +81,26 @@ function myInvites($mysqli) {
 		}
 }
 if(isset($_POST['eventname'], $_POST['description'], $_POST['publicity'], $_POST['eventdate'], $_POST['location'], $_POST['price'], $_POST['bdate'], $_POST['edate'], $_POST['min_age'])){
-	if ($stmt = $mysqli->prepare("INSERT INTO events (name, description, public, date, creator, location, price, bdate, edate, min_age) VALUES ( ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)"))
+	echo "hallo";
+	if ($stmt = $mysqli->prepare("INSERT INTO events (name) VALUES ( ?)"))
 	{
-		 $stmt->bind_param('ssssssddssd', $name, $description, $public, $eventdate, $username, $location, $price, $bdate, $edate, $min_age);  // Bind inputs to parameter.
-		 if (! $stmt->execute()) {
-                $error_msg .= '<p class="error">Es ist ein Fehler beim Erstellen des Events aufgetreten.</p>';
-            }
-		 
+		 echo "Hallo2";
+		 $stmt->bind_param('s', $name);  // Bind inputs to parameter.
+		 $stmt->execute();
+		 //if (! $stmt->execute()) {
+              //  $error_msg .= '<p class="error">Es ist ein Fehler beim Erstellen des Events aufgetreten.</p>';
+            //} else {
+			//	echo 'Event erfolgreich erstellt.';
+			//} 
 	}
-	echo 'Event erfolgreich erstellt.';
+	
 }
 ?>
+
+, description, public, date, creator, location, price, bdate, edate, min_age)
+
+, ?, ?, ?, ?, ?, ?, ?, ?, ?
+
+ssssddssd
+
+, $description, $public, $eventdate, $username, $location, $price, $bdate, $edate, $min_age
