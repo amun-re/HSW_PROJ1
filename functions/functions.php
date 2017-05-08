@@ -214,7 +214,36 @@ function getProfile($mysqli)
 		}
 	}	
 }
+function getInvites($mysqli)
+{
+	 if (isset($_SESSION['user_id'], $_SESSION['username'], $_SESSION['login_string'])) {
+ 
+        $user_id = $_SESSION['user_id'];
+        $login_string = $_SESSION['login_string'];
+        $username = $_SESSION['username'];
+		$ret = array();
+ 
+        // Hole den user-agent string des Benutzers.
+        $user_browser = $_SERVER['HTTP_USER_AGENT'];
+ 
+        if ($stmt = $mysqli->prepare("SELECT p.event as id, name, creator, bdate, edate, p.status as stat
+                                      FROM events as e
+									  JOIN participants as p
+									  on p.event = e.id
+                                      WHERE p.user = ?")) {
+            // Bind "$user_id" zum Parameter. 
+            $stmt->bind_param('i', $user_id);
+            $stmt->execute();   // Execute the prepared query.
+            $stmt->store_result();
+ 
+				$stmt->bind_result($id,$name,$creator,$bdate,$edate, $stat);
+                for ($i =0;$row = $stmt->fetch();$i++) 
+					$ret[$i] = array($id,$name,$creator, $bdate, $edate, $stat);
 
+				return $ret;
+		}
+	}	
+}
 
 function getPageData($string,$mysqli)
 {
@@ -225,7 +254,7 @@ function getPageData($string,$mysqli)
 		case "events":
 			return [];
 		case "invites":
-			return [];
+			return getInvites($mysqli);
 		break;		
 		default:
 			return [];
@@ -241,7 +270,7 @@ function getPageFunctions($string)
 		case "events":
 			return "functions/event.func.php";
 		case "invites":
-			return "functions/event.func.php";
+			return "functions/invite.inc.php";
 		break;		
 		default:
 			return "";

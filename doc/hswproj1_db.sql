@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Erstellungszeit: 26. Apr 2017 um 09:46
+-- Erstellungszeit: 08. Mai 2017 um 13:00
 -- Server-Version: 10.1.21-MariaDB
 -- PHP-Version: 5.6.30
 
@@ -29,10 +29,10 @@ SET time_zone = "+00:00";
 CREATE TABLE `events` (
   `id` int(11) NOT NULL,
   `name` varchar(120) NOT NULL,
-  `description` int(11) NOT NULL,
+  `description` varchar(50) NOT NULL,
   `public` tinyint(1) NOT NULL,
   `date` date NOT NULL,
-  `creator` varchar(50) NOT NULL,
+  `creator` int(11) NOT NULL,
   `location` int(11) NOT NULL,
   `price` decimal(10,0) NOT NULL,
   `bdate` datetime NOT NULL,
@@ -45,10 +45,12 @@ CREATE TABLE `events` (
 --
 
 INSERT INTO `events` (`id`, `name`, `description`, `public`, `date`, `creator`, `location`, `price`, `bdate`, `edate`, `min_age`) VALUES
-(1, 'test', 4, 0, '2017-04-05', '', 0, '0', '2017-04-20 00:00:00', '2017-04-22 00:00:00', 0),
-(2, 'test2', 33, 1, '2017-04-05', '', 0, '0', '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0),
-(3, 'emty space', 0, 0, '2017-04-06', '', 0, '0', '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0),
-(4, 'IT-Projektmanagement', 0, 0, '2017-04-20', '', 0, '0', '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0);
+(1, 'test', '4', 0, '2017-04-05', 0, 0, '0', '2017-04-20 00:00:00', '2017-04-22 00:00:00', 0),
+(2, 'test2', '33', 1, '2017-04-05', 0, 0, '0', '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0),
+(3, 'emty space', '0', 0, '2017-04-06', 0, 0, '0', '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0),
+(4, 'IT-Projektmanagement', '0', 0, '2017-04-20', 0, 0, '0', '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0),
+(5, 'asd', '0', 0, '0000-00-00', 0, 0, '0', '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0),
+(6, 'asdads', '0', 0, '0000-00-00', 0, 0, '0', '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0);
 
 -- --------------------------------------------------------
 
@@ -110,6 +112,14 @@ CREATE TABLE `participants` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
+-- Daten für Tabelle `participants`
+--
+
+INSERT INTO `participants` (`event`, `user`, `status`) VALUES
+(1, 1, 3),
+(2, 1, 1);
+
+--
 -- Indizes der exportierten Tabellen
 --
 
@@ -119,7 +129,8 @@ CREATE TABLE `participants` (
 ALTER TABLE `events`
   ADD PRIMARY KEY (`id`),
   ADD KEY `id` (`id`),
-  ADD KEY `location` (`location`);
+  ADD KEY `location` (`location`),
+  ADD KEY `creator` (`creator`);
 
 --
 -- Indizes für die Tabelle `locations`
@@ -158,7 +169,7 @@ ALTER TABLE `participants`
 -- AUTO_INCREMENT für Tabelle `events`
 --
 ALTER TABLE `events`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 --
 -- AUTO_INCREMENT für Tabelle `locations`
 --
