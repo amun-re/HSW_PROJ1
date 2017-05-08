@@ -85,14 +85,17 @@ if(isset($_POST['eventname'], $_POST['description'], $_POST['publicity'], $_POST
 	if ($stmt = $mysqli->prepare("INSERT INTO events (name) VALUES ( ?)"))
 	{
 		 echo "Hallo2";
-		 $stmt->bind_param('s', $name);  // Bind inputs to parameter.
+		 $stmt->bind_param('s', $_POST['eventname']);  // Bind inputs to parameter.
 		 $stmt->execute();
+		 echo("Statement failed: ". $stmt->error . "<br>");
 		 //if (! $stmt->execute()) {
               //  $error_msg .= '<p class="error">Es ist ein Fehler beim Erstellen des Events aufgetreten.</p>';
             //} else {
 			//	echo 'Event erfolgreich erstellt.';
 			//} 
 	}
+	else
+		echo("Statement failed: ". $stmt->error . "<br>");
 	
 }
 ?>
