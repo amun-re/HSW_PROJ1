@@ -1,7 +1,6 @@
 <?php
 include_once 'mysql.php';
 include_once 'functions.php';
-print_r ($_POST);
 $user_id = $_SESSION['user_id'];
 $username = $_SESSION['username'];
 $todaydate = date("d.m.Y",time());
@@ -81,11 +80,22 @@ function myInvites($mysqli) {
 		}
 }
 if(isset($_POST['eventname'], $_POST['description'], $_POST['publicity'], $_POST['eventdate'], $_POST['location'], $_POST['price'], $_POST['bdate'], $_POST['edate'], $_POST['min_age'])){
-	echo "hallo";
-	if ($stmt = $mysqli->prepare("INSERT INTO events (name) VALUES ( ?)"))
+	if ($stmt = $mysqli->prepare("INSERT INTO events (name, description, public, date, creator, location, price, bdate, edate, min_age) VALUES ( ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)"))
 	{
-		 echo "Hallo2";
-		 $stmt->bind_param('s', $_POST['eventname']);  // Bind inputs to parameter.
+		 $eventname = filter_input(INPUT_POST, 'eventname', FILTER_SANITIZE_STRING);
+		 $description = filter_input(INPUT_POST, 'description', FILTER_SANITIZE_STRING);
+		 if($_POST['publicity'] == "on") {
+			 $publicity = 1;
+		 } else {
+			 $publicity = 0;
+		 }
+		 $eventdate = filter_input(INPUT_POST, 'eventdate', FILTER_SANITIZE_STRING);
+		 $location = filter_input(INPUT_POST, 'location', FILTER_SANITIZE_STRING);
+		 $price = filter_input(INPUT_POST, 'price', FILTER_SANITIZE_STRING);
+		 $bdate = filter_input(INPUT_POST, 'bdate', FILTER_SANITIZE_STRING);
+		 $edate = filter_input(INPUT_POST, 'edate', FILTER_SANITIZE_STRING);
+		 $min_age = filter_input(INPUT_POST, 'min_age', FILTER_SANITIZE_STRING);
+		 $stmt->bind_param('ssdssddssd', $eventname, $description, $publicity, $eventdate, $username, $location, $price, $bdate, $edate, $min_age);  // Bind inputs to parameter.
 		 $stmt->execute();
 		 echo("Statement failed: ". $stmt->error . "<br>");
 		 //if (! $stmt->execute()) {
@@ -99,11 +109,3 @@ if(isset($_POST['eventname'], $_POST['description'], $_POST['publicity'], $_POST
 	
 }
 ?>
-
-, description, public, date, creator, location, price, bdate, edate, min_age)
-
-, ?, ?, ?, ?, ?, ?, ?, ?, ?
-
-ssssddssd
-
-, $description, $public, $eventdate, $username, $location, $price, $bdate, $edate, $min_age

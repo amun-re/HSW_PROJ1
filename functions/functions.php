@@ -263,16 +263,16 @@ function getTemplate($string)
 	}
 }
 
-function nextEvents($todaydate) {
-	if ($stmt = $todaydate->prepare("SELECT name, date FROM events WHERE date >= ? LIMIT 5"))
+function nextEvents($mysqli) {
+	$todaydate = date("Y-m-d");
+	if ($stmt = $mysqli->prepare("SELECT name, bdate, edate, min_age FROM events WHERE date >= ? LIMIT 5"))
 	{
-		 $stmt->bind_param('s', $todaydate);  // Bind "$user_id" to parameter.
+		 $stmt->bind_param('s', $todaydate);  // Bind "$todaydate" to parameter.
 		 $stmt->execute();    // Führe die vorbereitete Anfrage aus.
 		 $stmt->store_result();
 		 
 		 // hole Variablen von result.
-		 $stmt->bind_result($id, $name, $description, $public, $date, $creator, 
-							$location, $price, $bdate, $edate, $min_age);
+		 $stmt->bind_result($name, $bdate, $edate, $min_age);
 		echo "<table name=\"events\" id=\"events\">
 		<tr>
 		<th>Name</th>
@@ -290,6 +290,10 @@ function nextEvents($todaydate) {
 			echo "</tr>";
 			}
 		echo "</table>";
+		}
+		else
+		{
+			echo $mysqli->error;
 		}
 }
 

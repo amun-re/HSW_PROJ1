@@ -15,6 +15,7 @@
   </ul>
   <p>
   <b>Nächste Veranstaltungen:</b>
+  <p class="nextEvents"> <?php nextEvents($mysqli); ?></p>
   </p>
             
 </div>
