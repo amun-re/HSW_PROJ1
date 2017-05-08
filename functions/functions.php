@@ -263,4 +263,34 @@ function getTemplate($string)
 	}
 }
 
+function nextEvents($todaydate) {
+	if ($stmt = $todaydate->prepare("SELECT name, date FROM events WHERE date >= ? LIMIT 5"))
+	{
+		 $stmt->bind_param('s', $todaydate);  // Bind "$user_id" to parameter.
+		 $stmt->execute();    // Führe die vorbereitete Anfrage aus.
+		 $stmt->store_result();
+		 
+		 // hole Variablen von result.
+		 $stmt->bind_result($id, $name, $description, $public, $date, $creator, 
+							$location, $price, $bdate, $edate, $min_age);
+		echo "<table name=\"events\" id=\"events\">
+		<tr>
+		<th>Name</th>
+		<th>Beginn</th>
+		<th>Ende</th>
+		<th>Mindestalter</th>
+		</tr>";
+			while ($row = $stmt->fetch()) 
+			{
+			echo "<tr>";
+			echo "<td>" . $name . "</td>";
+			echo "<td>" . $bdate. "</td>";
+			echo "<td>" . $edate. "</td>";
+			echo "<td>" . $min_age. "</td>";
+			echo "</tr>";
+			}
+		echo "</table>";
+		}
+}
+
 ?>
