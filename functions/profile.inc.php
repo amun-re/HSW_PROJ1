@@ -61,7 +61,7 @@ if (isset($_POST['p'], $_POST['pOld'])) {
 	}
 }
 
-if (isset($_POST['username'], $_POST['email'])) {
+if (isset($_POST['username'], $_POST['email'], $_POST['age'])) {
 	var_dump($_POST);
 
 	$user_id = $_SESSION['user_id'];
@@ -74,8 +74,9 @@ if (isset($_POST['username'], $_POST['email'])) {
         // keine gültige E-Mail
         $error_msg .= '<p class="error">The email address you entered is not valid</p>';
     }
+	$age = filter_input(INPUT_POST, 'age', FILTER_SANITIZE_NUMBER_INT);
 	
-	$prep_stmt = "SELECT id, email FROM members WHERE email = ? LIMIT 1";
+	$prep_stmt = "SELECT id, email, age FROM members WHERE email = ? LIMIT 1";
     $stmt = $mysqli->prepare($prep_stmt);
  
     if ($stmt) {
@@ -84,7 +85,7 @@ if (isset($_POST['username'], $_POST['email'])) {
         $stmt->store_result();
  
         if ($stmt->num_rows == 1) {
-			$stmt->bind_result($db_id, $db_email);
+			$stmt->bind_result($db_id, $db_email, $db_age);
             $stmt->fetch();
 			if($db_id != $user_id)
 			{            // Ein Benutzer mit dieser E-Mail-Adresse existiert schon
@@ -97,8 +98,8 @@ if (isset($_POST['username'], $_POST['email'])) {
 	
 	if (empty($error_msg)) {
         // Trage den neuen Benutzer in die Datenbank ein 
-        if ($stmt = $mysqli->prepare("UPDATE members SET username = ? , email = ? WHERE ID = ?")) {
-            $stmt->bind_param('ssi', $username, $email, $user_id);
+        if ($stmt = $mysqli->prepare("UPDATE members SET username = ? , email = ? , age = ? WHERE ID = ?")) {
+            $stmt->bind_param('ssdi', $username, $email, $age, $user_id);
             // Führe die vorbereitete Anfrage aus.
             if (!$stmt->execute()) {
                 //header('Location: ../error.php?err=Registration failure: INSERT');

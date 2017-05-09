@@ -77,10 +77,11 @@ function regformhash(form, uid, email, password, conf) {
     form.submit();
     return true;
 }
-function profileForm(form, uid, email) {
+function profileForm(form, uid, email, age) {
      // Überprüfe, ob jedes Feld einen Wert hat
     if (uid.value == ''         || 
-          email.value == ''     ) {
+          email.value == ''		||
+			age.value == ''		) {
  
         alert('You must provide all the requested details. Please try again');
         return false;

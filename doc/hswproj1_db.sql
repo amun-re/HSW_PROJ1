@@ -88,8 +88,8 @@ CREATE TABLE `members` (
   `username` varchar(30) NOT NULL,
   `email` varchar(50) NOT NULL,
   `password` char(128) NOT NULL,
-  `salt` char(128) NOT NULL
-  `age` int(4) NOT NULL
+  `salt` char(128) NOT NULL,
+  `age` int(44) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --

@@ -5,17 +5,17 @@ $user_id = $_SESSION['user_id'];
 $username = $_SESSION['username'];
 $todaydate = date("d.m.Y",time());
 $error_msg = "";
-function myEvents($mysqli, $username2) {
+function myEvents($mysqli, $user_id2) {
 	if ($stmt = $mysqli->prepare("SELECT * FROM events WHERE creator = ?"))
 	{
-		 $stmt->bind_param('s', $username2);  // Bind "$username" to parameter.
+		 $stmt->bind_param('s', $user_id2);  // Bind "$username" to parameter.
 		 $stmt->execute();    // Führe die vorbereitete Anfrage aus.
 		 $stmt->store_result();
 		 		 
 		 // hole Variablen von result.
 		 $stmt->bind_result($id, $name, $description, $public, $date, $creator, 
 							$location, $price, $bdate, $edate, $min_age);
-		echo "<table name=\"events\" id=\"events\">
+		echo "<table border=1 name=\"events\" id=\"events\">
 		<tr>
 		<th>Name</th>
 		<th>Beschreibung</th>
@@ -93,13 +93,66 @@ if(isset($_POST['eventname'], $_POST['description'], $_POST['eventdate'], $_POST
 		 $bdate = filter_input(INPUT_POST, 'bdate', FILTER_SANITIZE_STRING);
 		 $edate = filter_input(INPUT_POST, 'edate', FILTER_SANITIZE_STRING);
 		 $min_age = filter_input(INPUT_POST, 'min_age', FILTER_SANITIZE_STRING);
-		 $stmt->bind_param('ssdssddssd', $eventname, $description, $publicity, $eventdate, $username, $location, $price, $bdate, $edate, $min_age);  // Bind inputs to parameter.
-		 $stmt->execute();
+		 $stmt->bind_param('ssisiiissi', $eventname, $description, $publicity, $eventdate, $user_id, $location, $price, $bdate, $edate, $min_age);  // Bind inputs to parameter.
 		 if (! $stmt->execute()) {
                 $error_msg .= '<p class="error">Es ist ein Fehler beim Erstellen des Events aufgetreten.</p>';
             } else {
 				echo 'Event erfolgreich erstellt.';
-			} 
+				if($publicity == 0) {
+					if ($stmtMembers = $mysqli->prepare("SELECT id FROM members where age >= ?"))
+					{
+						 $stmtMembers->bind_param('i', $min_age);  // Bind input to parameter.
+						 $stmtMembers->execute();    // Führe die vorbereitete Anfrage aus.
+						 $stmtMembers->store_result();
+						 
+						 // hole Variablen von result.
+						 $stmtMembers->bind_result($members);
+						 while ($row = $stmtMembers->fetch())
+						 {
+							 if($stmtEvent = $mysqli->prepare("SELECT MAX(id) FROM events where 1"))
+							 {
+								 $stmtEvent->execute();    // Führe die vorbereitete Anfrage aus.
+								 $stmtEvent->store_result();
+								 
+								 // hole Variablen von result.
+								 $stmtEvent->bind_result($events);
+								 if($stmtParticipants = $mysqli->prepare("INSERT INTO participants VALUES (?, ?, 1)"))
+								 {
+									 $stmtEvent->fetch();
+									 $stmtParticipants->bind_param('ii', $events, $members);  // Bind input to parameter.
+									 $stmtParticipants->execute();    // Führe die vorbereitete Anfrage aus.
+								 }
+							 }
+						 }
+					} 
+				} else {
+					if ($stmtMembers = $mysqli->prepare("SELECT id FROM members where 1"))
+					{
+						 $stmtMembers->execute();    // Führe die vorbereitete Anfrage aus.
+						 $stmtMembers->store_result();
+						 
+						 // hole Variablen von result.
+						 $stmtMembers->bind_result($members);
+						 while ($row = $stmtMembers->fetch())
+						 {
+							 if($stmtEvent = $mysqli->prepare("SELECT MAX(id) FROM events where 1"))
+							 {
+								 $stmtEvent->execute();    // Führe die vorbereitete Anfrage aus.
+								 $stmtEvent->store_result();
+								 
+								 // hole Variablen von result.
+								 $stmtEvent->bind_result($events);
+								 if($stmtParticipants = $mysqli->prepare("INSERT INTO participants VALUES (?, ?, 1)"))
+								 {
+									 $stmtEvent->fetch();
+									 $stmtParticipants->bind_param('ii', $events, $members);  // Bind input to parameter.
+									 $stmtParticipants->execute();    // Führe die vorbereitete Anfrage aus.
+								 }
+							 }
+						 }
+					}
+				}
+			}
 	} else {
 		echo("Statement failed: ". $stmt->error . "<br>");
 	}

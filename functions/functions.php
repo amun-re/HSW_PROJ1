@@ -196,7 +196,7 @@ function getProfile($mysqli)
         // Hole den user-agent string des Benutzers.
         $user_browser = $_SERVER['HTTP_USER_AGENT'];
  
-        if ($stmt = $mysqli->prepare("SELECT username, email 
+        if ($stmt = $mysqli->prepare("SELECT username, email, age 
                                       FROM members 
                                       WHERE id = ? LIMIT 1")) {
             // Bind "$user_id" zum Parameter. 
@@ -206,10 +206,11 @@ function getProfile($mysqli)
  
             if ($stmt->num_rows == 1) 
 			{
-				$stmt->bind_result($username,$email);
+				$stmt->bind_result($username,$email, $age);
                 $stmt->fetch();
 				return [ "username" => $username, 
-						 "email" => $email];
+						 "email" => $email,
+						 "age" => $age];
 			}
 		}
 	}	

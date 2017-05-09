@@ -11,10 +11,12 @@ if (!empty($error_msg)) {
 			<form name="profile_form" action="<?php echo esc_url($_SERVER['PHP_SELF']); ?>?page=profile" method="POST">
 			Benutzername <input type="text" name="username" placeholder="<?php if(isset($dataArray["username"])) echo $dataArray["username"] ?>" value="<?php if(isset($dataArray["username"])) echo $dataArray["username"] ?>"><br>
 			E-Mail <input type="text" name="email" placeholder="<?php if(isset($dataArray["username"])) echo $dataArray["email"] ?>" value="<?php if(isset($dataArray["username"])) echo $dataArray["email"] ?>"></input><br>
+			Alter <input type="text" name="age" placeholder="<?php if(isset($dataArray["username"])) echo $dataArray["age"] ?>" value="<?php if(isset($dataArray["username"])) echo $dataArray["age"] ?>"></input><br>
 			
 			<input type="button" value="Ändern" onclick="return profileForm(this.form,
 																			this.form.username,
-																			this.form.email);"><br><br>
+																			this.form.email,
+																			this.form.age);"><br><br>
 		</form>
 		<form name="profile_form" action="<?php echo esc_url($_SERVER['PHP_SELF']); ?>?page=profile" method="POST">
 			Passwort (aktuell)<input type="password" name="password" value=""><br>																
