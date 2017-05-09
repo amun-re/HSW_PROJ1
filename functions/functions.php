@@ -256,6 +256,8 @@ function getPageData($string,$mysqli)
 			return [];
 		case "invites":
 			return getInvites($mysqli);
+		case "locations":
+			return [];
 		break;		
 		default:
 			return [];
@@ -272,6 +274,8 @@ function getPageFunctions($string)
 			return "functions/event.func.php";
 		case "invites":
 			return "functions/invite.inc.php";
+		case "locations":
+			return "functions/location.inc.php";
 		break;		
 		default:
 			return "";
@@ -287,6 +291,8 @@ function getTemplate($string)
 			return "templates/event_template.php";
 		case "invites":
 			return "templates/invite_template.php";
+		case "locations":
+			return "templates/location_template.php";
 		break;		
 		default:
 			return "templates/kalender_template.php";

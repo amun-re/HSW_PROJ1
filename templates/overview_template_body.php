@@ -9,6 +9,7 @@
   <ul id="navigation">
   <li><a href="?" id="usedSide">Veranstaltungen</a></li>
   <li><a href="?page=profile">Profil</a></li>
+  <li><a href="?page=locations">Locations</a></li>
   <li><a href="?page=events">Eigene Veranstaltungen</a></li>
   <li><a href="?page=invites">Meine Einladungen</a></li>
   <li><a href="logout.php">Logout</a></li>
