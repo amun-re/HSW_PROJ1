@@ -3,15 +3,16 @@ include_once 'mysql.php';
 include_once 'functions.php';
 $error_msg = "";
 function locationslist($mysqli) {
-	if ($stmt = $mysqli->prepare("SELECT name, place, plz, max_participants FROM locations WHERE 1"))
+	if ($stmt = $mysqli->prepare("SELECT id, name, place, plz, max_participants FROM locations WHERE 1"))
 	{
 		 $stmt->execute();    // Führe die vorbereitete Anfrage aus.
 		 $stmt->store_result();
 		 		 
 		 // hole Variablen von result.
-		 $stmt->bind_result($name, $place, $plz, $max_participants);
+		 $stmt->bind_result($id, $name, $place, $plz, $max_participants);
 		echo "<table border=1 name=\"events\" id=\"events\">
 		<tr>
+		<th>ID</th>
 		<th>Name</th>
 		<th>Adresse</th>
 		<th>PLZ</th>
@@ -20,6 +21,7 @@ function locationslist($mysqli) {
 			while ($row = $stmt->fetch()) 
 			{
 				echo "<tr>";
+				echo "<td>" . $id . "</td>";
 				echo "<td>" . $name . "</td>";
 				echo "<td>" . $place	 . "</td>";
 				echo "<td>" . $plz . "</td>";
