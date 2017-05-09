@@ -6,7 +6,7 @@ $username = $_SESSION['username'];
 $todaydate = date("d.m.Y",time());
 $error_msg = "";
 function myEvents($mysqli, $user_id2) {
-	if ($stmt = $mysqli->prepare("SELECT * FROM events WHERE creator = ?"))
+	if ($stmt = $mysqli->prepare("SELECT e.id, e.name, description, public, date, m.username, l.name, price, bdate, edate, min_age FROM events as e join members as m on m.id  join locations as l on l.id WHERE m.id = ?"))
 	{
 		 $stmt->bind_param('s', $user_id2);  // Bind "$username" to parameter.
 		 $stmt->execute();    // Führe die vorbereitete Anfrage aus.
@@ -33,7 +33,12 @@ function myEvents($mysqli, $user_id2) {
 				echo "<tr>";
 				echo "<td>" . $name . "</td>";
 				echo "<td>" . $description	 . "</td>";
-				echo "<td>" . $public . "</td>";
+				if($public == 0)
+				{
+					echo "<td>Nein</td>";
+				} else {
+					echo "<td>Ja</td>";
+				}
 				echo "<td>" . $date. "</td>";
 				echo "<td>" . $creator. "</td>";
 				echo "<td>" . $location. "</td>";
