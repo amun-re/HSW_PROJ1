@@ -45,12 +45,12 @@ CREATE TABLE `events` (
 --
 
 INSERT INTO `events` (`id`, `name`, `description`, `public`, `date`, `creator`, `location`, `price`, `bdate`, `edate`, `min_age`) VALUES
-(1, 'test', '4', 0, '2017-04-05', 0, 0, '0', '2017-04-20 00:00:00', '2017-04-22 00:00:00', 0),
-(2, 'test2', '33', 1, '2017-04-05', 0, 0, '0', '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0),
-(3, 'emty space', '0', 0, '2017-04-06', 0, 0, '0', '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0),
-(4, 'IT-Projektmanagement', '0', 0, '2017-04-20', 0, 0, '0', '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0),
-(5, 'asd', '0', 0, '0000-00-00', 0, 0, '0', '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0),
-(6, 'asdads', '0', 0, '0000-00-00', 0, 0, '0', '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0);
+(1, 'test', '4', 0, '2017-04-05', 0, 1, '0', '2017-04-20 00:00:00', '2017-04-22 00:00:00', 0),
+(2, 'test2', '33', 1, '2017-04-05', 0, 1, '0', '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0),
+(3, 'emty space', '0', 0, '2017-04-06', 0, 1, '0', '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0),
+(4, 'IT-Projektmanagement', '0', 0, '2017-04-20', 0, 1, '0', '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0),
+(5, 'asd', '0', 0, '0000-00-00', 0, 1, '0', '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0),
+(6, 'asdads', '0', 0, '0000-00-00', 0, 1, '0', '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0);
 
 -- --------------------------------------------------------
 
@@ -66,6 +66,14 @@ CREATE TABLE `locations` (
   `max_participants` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+-- --------------------------------------------------------
+
+--
+-- Daten für Tabelle `locations`
+--
+
+INSERT INTO `locations` (`id`, `name`, `place`, `plz`, `max_participants`) VALUES
+(1, 'Berliner Flughafen', 'Kalenberger Alee 345', '33333', '230');
 -- --------------------------------------------------------
 
 --
@@ -167,20 +175,24 @@ ALTER TABLE `participants`
 --
 
 --
--- AUTO_INCREMENT für Tabelle `events`
---
-ALTER TABLE `events`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
---
 -- AUTO_INCREMENT für Tabelle `locations`
 --
 ALTER TABLE `locations`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  
+--
+-- AUTO_INCREMENT für Tabelle `events`
+--
+ALTER TABLE `events`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7,
+  ADD CONSTRAINT `locations_ibfk_1` FOREIGN KEY (`location`) REFERENCES `locations` (`id`);
+
 --
 -- AUTO_INCREMENT für Tabelle `members`
 --
 ALTER TABLE `members`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  
 --
 -- Constraints der exportierten Tabellen
 --
@@ -188,8 +200,7 @@ ALTER TABLE `members`
 --
 -- Constraints der Tabelle `locations`
 --
-ALTER TABLE `locations`
-  ADD CONSTRAINT `locations_ibfk_1` FOREIGN KEY (`id`) REFERENCES `events` (`location`) ON DELETE CASCADE ON UPDATE CASCADE;
+
 
 --
 -- Constraints der Tabelle `login_attempts`

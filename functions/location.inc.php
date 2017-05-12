@@ -43,7 +43,8 @@ if(isset($_POST['locationname'], $_POST['place'], $_POST['plz'], $_POST['max_par
 		 $max_participants = filter_input(INPUT_POST, 'max_participants', FILTER_SANITIZE_NUMBER_INT);
 		 $stmt->bind_param('ssii', $locationname, $place, $plz, $max_participants);  // Bind inputs to parameter.
 		 if (! $stmt->execute()) {
-                $error_msg .= '<p class="error">Es ist ein Fehler beim Erstellen der Location aufgetreten.</p>';
+               // $error_msg .= '<p class="error">Es ist ein Fehler beim Erstellen der Location aufgetreten.</p>';
+			   echo ( "Satement failed: " .$stmt->error . "<br>");
             } else {
 				echo 'Location erfolgreich erstellt.';
 			}

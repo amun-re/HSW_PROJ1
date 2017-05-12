@@ -6,7 +6,7 @@ $username = $_SESSION['username'];
 $todaydate = date("d.m.Y",time());
 $error_msg = "";
 function myEvents($mysqli, $user_id2) {
-	if ($stmt = $mysqli->prepare("SELECT e.id, e.name, description, public, date, m.username, l.name, price, bdate, edate, min_age FROM events as e join members as m on m.id  join locations as l on l.id WHERE m.id = ?"))
+	if ($stmt = $mysqli->prepare("SELECT e.id, e.name, description, public, date, m.username, l.name, price, bdate, edate, min_age FROM events as e join members as m on m.id  inner join locations as l on e.location = l.id WHERE m.id = ?"))
 	{
 		 $stmt->bind_param('s', $user_id2);  // Bind "$username" to parameter.
 		 $stmt->execute();    // Führe die vorbereitete Anfrage aus.
@@ -82,7 +82,26 @@ function myInvites($mysqli, $username2) {
 			echo $mysqli->error;
 		}
 }
+
+function myLocations($mysqli)
+{
+	 $locationList = array();
+	 if ($stmt = $mysqli->prepare("SELECT name from locations where 1")) {
+            $stmt->execute();   // Execute the prepared query.
+            $stmt->store_result();
+ 
+				$stmt->bind_result($locationname);
+                for ($i =0;$row = $stmt->fetch();$i++)
+				{
+					$locationList[$i] = $locationname;
+				}
+
+				return $locationList;
+		}
+}
+
 if(isset($_POST['eventname'], $_POST['description'], $_POST['eventdate'], $_POST['location'], $_POST['price'], $_POST['bdate'], $_POST['edate'], $_POST['min_age'])){
+    $locationid = '';
 	if ($stmt = $mysqli->prepare("INSERT INTO events (name, description, public, date, creator, location, price, bdate, edate, min_age) VALUES ( ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)"))
 	{
 		 $eventname = filter_input(INPUT_POST, 'eventname', FILTER_SANITIZE_STRING);
@@ -93,14 +112,27 @@ if(isset($_POST['eventname'], $_POST['description'], $_POST['eventdate'], $_POST
 			 $publicity = 1;
 		 }
 		 $eventdate = filter_input(INPUT_POST, 'eventdate', FILTER_SANITIZE_STRING);
-		 $location = filter_input(INPUT_POST, 'location', FILTER_SANITIZE_STRING);
+		 if ($locationstmt = $mysqli->prepare("SELECT id, name from locations where 1"))
+		 {
+			$locationstmt->execute();   // Execute the prepared query.
+            $locationstmt->store_result();
+			$locationstmt->bind_result($id, $locationname);
+			while($row = $locationstmt->fetch())
+				{	
+					if($_POST['location']==$locationname)
+					{
+						$locationid = $id;
+					}
+				}
+		 }
+		 $location = $locationid;
 		 $price = filter_input(INPUT_POST, 'price', FILTER_SANITIZE_STRING);
 		 $bdate = filter_input(INPUT_POST, 'bdate', FILTER_SANITIZE_STRING);
 		 $edate = filter_input(INPUT_POST, 'edate', FILTER_SANITIZE_STRING);
 		 $min_age = filter_input(INPUT_POST, 'min_age', FILTER_SANITIZE_STRING);
 		 $stmt->bind_param('ssisiiissi', $eventname, $description, $publicity, $eventdate, $user_id, $location, $price, $bdate, $edate, $min_age);  // Bind inputs to parameter.
 		 if (! $stmt->execute()) {
-                $error_msg .= '<p class="error">Es ist ein Fehler beim Erstellen des Events aufgetreten.</p>';
+                echo("Statement failed: ". $stmt->error . "<br>");
             } else {
 				echo 'Event erfolgreich erstellt.';
 				if($publicity == 0) {
