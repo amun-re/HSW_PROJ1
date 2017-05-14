@@ -38,7 +38,8 @@ if (!empty($error_msg)) {
              
              <tr valign="baseline">
          <td>Location<br>&nbsp;&nbsp;&nbsp;</td>
-         <td><select name="location">
+         <td><select name="location" style="color:black">
+
 				<?php $locationList = myLocations($mysqli);
 				//print_r ($locationList);
 					for($i = 0; $i < count ($locationList); $i++)
@@ -88,3 +89,6 @@ if (!empty($error_msg)) {
 <?php
 }
 ?>
+
+
+
