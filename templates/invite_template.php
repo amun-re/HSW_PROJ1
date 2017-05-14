@@ -9,13 +9,13 @@ if (!empty($error_msg)) {
  <div id="content">
             <p class="content-head"><?php echo htmlentities($_SESSION['username']); ?>s Einladungen</p>
 
-			<table width="100%">
-			<tr>
-			<th>Event</th>
-			<th>Ersteller</th>
-			<th>Begin</th>
-			<th>Ende</th>
-			<th>Status</th>
+			<table width="100%" >
+			<tr align="center">
+			<td>Event</td>
+			<td>Ersteller</td>
+			<td>Begin</td>
+			<td>Ende</td>
+			<td>Status</td>
 			</tr>
 			
 			<?php foreach($dataArray as $row) { ?>

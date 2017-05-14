@@ -47,7 +47,7 @@
                         </td>
                         <td>
                         
-					<div >
+					<div>
 						<ul>
 							<li>Benutzernamen dürfen nur Ziffern, Groß- und Kleinbuchstaben und Unterstriche enthalten.</li>
 							<li>E-Mail-Adressen müssen ein gültiges Format haben.</li>
