@@ -37,7 +37,6 @@ window.onload = function () {
     setText('calendar-date', d.getDate());
     setText('calendar-month-year',  document.getElementById("kalender_kopf_inhalt").textContent);
     getData(fulldate);
-	//setText('calendar-eventtext', "Keine Veranstaltungen");
 }
 
 // Nummer des ersten Tages des aktuellen Monats, Anzahl der Tage des aktuellen Monats
@@ -162,12 +161,15 @@ function getZeroDate(date)
 }
 
 function contains(a, obj) {
-    var i = a.length;
-    while (i--) {
+	if(a != null && obj != null)
+	{
+     var i = a.length;
+      while (i--) {
        if (a[i] === obj) {
            return true;
        }
     }
+	}
     return false;
 }
 
@@ -176,8 +178,6 @@ function f_click(onclick){
     setText('calendar-date',this.getAttribute("value"));
     setText('calendar-month-year', this.getAttribute("monatJahr"));
     getData(this.getAttribute("date"));
-	
-	//console.log("Selected '" + this.getAttribute("date") + "'"); 
     
        var table = document.getElementById('kalender_bauch').firstElementChild,
     rows = table.rows, rowcount = rows.length, r,
@@ -201,52 +201,65 @@ for( r=0; r<rowcount; r++) {
 function parseHTML(html) {
 	var parser = new DOMParser();
 	var document = parser.parseFromString(html, "text/xml");
-	var table = document.getElementById("events");
-	var r=2;
-	var ret = "<b>Veranstaltungen</b><br>";
-	while(row=table.childNodes[r++])
+	var table = document.firstChild.childNodes;
+	if(table != null)
 	{
-			//var c = 0;			
-			ret = ret + row.childNodes[1].innerHTML + "<br>";
-			//console.log(ret);
-		/*	while(col=row.childNodes[c++])
+		var r=2;
+		var i = 0;
+		var ret = "<b>Veranstaltungen</b><br>";
+	
+	for (r = 0; r < table.length ;r++)
+		{
+			if(table[r].nodeName != "#text" && table[r].childNodes[0].nodeName != "#text")		
 			{
-				if(col.nodeName != "#text")
-				{ 
-					//if(col.nodeName == "th") // && col.childNodes[0].nodeName == "name")
-						console.log(col.childNodes[0]);
-				}
-			}*/
+					ret = ret + table[r].childNodes[1].childNodes[0].nodeValue + "<br>";
+			}
+		}
 	}
-	if(r == 3) ret = "Keine Veranstaltungen";
+	else
+	{
+		console.log("Node not found");
+	}
+	console.log(ret);
+	if(ret.length == 26) ret = "Keine Veranstaltungen";
 	return ret;
 }
 
 function parseEventDates(html) {
 	var parser = new DOMParser();
-	var document = parser.parseFromString(html, "text/xml");
-	var table = document.getElementById("events");
+	var document;
+	
+    document = parser.parseFromString(html, "text/xml");
+	var table = document.firstChild.childNodes;
+	
 	var r=2;
 	var i=0;
-	var ret = new Array(table.childNodes.length-2);
-	while(row=table.childNodes[r++])
+	if(table != null)
 	{
-		if(row.nodeName != "#text")		
-		{			
-			//console.log(row.nodeName);
-			ret[i] = row.childNodes[0].innerHTML;
-			i++;
+		var ret = new Array(table.length-2);
+		for (r = 0; r < table.length ;r++)
+		{
+			if(table[r].nodeName != "#text")		
+			{
+				var date = table[r].childNodes[0].childNodes[0];
+				if(date != undefined)
+				{
+					var text = table[r].childNodes[0].childNodes[0].nodeValue;	
+				ret[i] = text;
+				i++;
+				}
+			}
 		}
 	}
-	//console.log(ret);
+	else
+	{
+		console.log("Node not found");
+	}
 	return ret;
 }
 
-
-
 function getData(date)
 {
-	//var returnval = "";
 	 if (date == "") 
 	 {
         document.getElementById("txtHint").innerHTML = "";
@@ -261,12 +274,9 @@ function getData(date)
         }
         xmlhttp.onreadystatechange = function() {
             if (this.readyState == 4 && this.status == 200) {
-				//returnval = this.responseText;
 				setText('calendar-eventtext', parseHTML(this.responseText));
-				//setText('calendar-eventtext', returnval);
             }
         };
-        //xmlhttp.open("GET","../functions/calender.func.php?date="+date,true);
 		xmlhttp.open("GET","../functions/calender.func.php?date="+date,true);
         xmlhttp.send();
     }
@@ -274,7 +284,6 @@ function getData(date)
 
 function getAllEvents(month)
 {
-	//console.log(month);
 	if (month == "") 
 	 {
         //document.getElementById("txtHint").innerHTML = "";
@@ -291,7 +300,6 @@ function getAllEvents(month)
 				html_data = this.responseText;
             }
         };
-        //xmlhttp.open("GET","../functions/calender.func.php?date="+date,true);
 		xmlhttp.open("GET","../functions/calender.func.php?date="+month,false);
         xmlhttp.send();
     }

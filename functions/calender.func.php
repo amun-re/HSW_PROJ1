@@ -3,6 +3,10 @@ include_once 'mysql.php';
 include_once 'functions.php';
 if(isset($_GET['date']) && strlen($_GET['date']) == 10) // && login_check($mysqli) == true)
 {
+header("Content-Type: application/xhtml+xml");
+header('X-Frame-Options: ALLOW-FROM *'); 
+header("Access-Control-Allow-Origin: *");
+
 $date = htmlentities($_GET['date']);
 $sql = "SELECT * FROM events WHERE date = ?";
 if ($stmt = $mysqli->prepare($sql))
@@ -12,8 +16,8 @@ if ($stmt = $mysqli->prepare($sql))
      $stmt->store_result();
 	 
 	 // hole Variablen von result.
-     $stmt->bind_result($id, $name, $description, $public, $date, $creator, 
-					    $location, $price, $bdate, $edate, $min_age);
+     $stmt->bind_result($id, $name, $description, $public, $date, $creator, $location, $price, $bdate, $edate, $min_age);
+	echo "<?xml version=\"1.0\" encoding=\"UTF-8\"?>";
 	echo "<table name=\"events\" id=\"events\">
 	<tr>
 	<th>id</th>
@@ -50,24 +54,22 @@ if ($stmt = $mysqli->prepare($sql))
 	{
 		echo $mysqli->error;
 	}
-}/*
-else
-{
-	echo "Check:" + login_check($mysqli);
-}*/
+}
 
 if(isset($_GET['date']) && strlen($_GET['date']) == 7) 
 {
 	$date = htmlentities($_GET['date']); 
 	$sql = "SELECT distinct date FROM events WHERE date LIKE CONCAT(?,'%')";
+	//$sql = "SELECT distinct date FROM events WHERE (1 in (SELECT user from participants where event = id) ) AND date LIKE CONCAT(?,'%')";
 	if ($stmt = $mysqli->prepare($sql))
 	{
+		$user = 1;
 		$stmt->bind_param('s', $date);  // Bind "$email" to parameter.
 		$stmt->execute();    // Führe die vorbereitete Anfrage aus.
 		$stmt->store_result();
 		
 		$stmt->bind_result($date);
-		
+		echo "<?xml version=\"1.0\" encoding=\"UTF-8\"?>";
 		echo "<table name=\"events\" id=\"events\">
 	<tr>
 	<th>date</th>
