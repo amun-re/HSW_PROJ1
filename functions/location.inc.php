@@ -2,6 +2,11 @@
 include_once 'mysql.php';
 include_once 'functions.php';
 $error_msg = "";
+
+/**
+ * Diese Methode erstellt eine Tabelle die alle bereits erstellten Locations anzeigt.
+ * @param Array $mysqli
+ */
 function locationslist($mysqli) {
 	if ($stmt = $mysqli->prepare("SELECT id, name, place, plz, max_participants FROM locations WHERE 1"))
 	{
@@ -33,7 +38,11 @@ function locationslist($mysqli) {
 			echo $mysqli->error;
 		}
 }
-	
+
+/**
+ * Diese Methode erstellt einelocation und fügt sie in die Datenbank ein.
+ * @param Array $_POST
+ */	
 if(isset($_POST['locationname'], $_POST['place'], $_POST['plz'], $_POST['max_participants'])){
 	if ($stmt = $mysqli->prepare("INSERT INTO locations (name, place, plz, max_participants) VALUES ( ?, ?, ?, ?)"))
 	{

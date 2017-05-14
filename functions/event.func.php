@@ -5,6 +5,12 @@ $user_id = $_SESSION['user_id'];
 $username = $_SESSION['username'];
 $todaydate = date("d.m.Y",time());
 $error_msg = "";
+
+/**
+ * Diese Methode erstellt eine Tabelle, die die vom derzeit angemeldeten User erstellten Veranstaltungen anzeigt.
+ * @param Array $mysqli
+ * @param String $user_id2
+ */
 function myEvents($mysqli, $user_id2) {
 	if ($stmt = $mysqli->prepare("SELECT e.id, e.name, description, public, date, m.username, l.name, price, bdate, edate, min_age FROM events as e join members as m on m.id = e.creator inner join locations as l on e.location = l.id WHERE m.id = ?"))
 	{
@@ -54,7 +60,11 @@ function myEvents($mysqli, $user_id2) {
 			echo $mysqli->error;
 		}
 }
-	
+/**
+ * Diese Methode erstellt eine Tabelle, die die aktuellen Einladungen an den derzeit angemeldeten user enthält.
+ * @param Array $mysqli
+ * @param String $username2
+ */	
 function myInvites($mysqli, $username2) {
 	if ($stmt = $mysqli->prepare("SELECT * FROM participants where user = ?"))
 	{
@@ -84,6 +94,10 @@ function myInvites($mysqli, $username2) {
 		}
 }
 
+/**
+ * Diese Methode erstellt ein Array mit allen bereits erstellten Locations für die Dropdownliste.
+ * @param Array $mysqli
+ */
 function myLocations($mysqli)
 {
 	 $locationList = array();
@@ -101,6 +115,12 @@ function myLocations($mysqli)
 		}
 }
 
+/**
+ * Diese Methode erstellt mithilfe des übergebenen Forms eine Veranstaltung und fügt sie in die Datenbank ein.
+ * Danach fragt sie ob die Veranstaltung öffentlich ist, und verschickt dann dementsprechend Einladungen.
+ * @param Array $_POST
+ * @param Array $mysqli
+ */
 if(isset($_POST['eventname'], $_POST['description'], $_POST['eventdate'], $_POST['location'], $_POST['price'], $_POST['bdate'], $_POST['edate'], $_POST['min_age'])){
     $locationid = '';
 	if ($stmt = $mysqli->prepare("INSERT INTO events (name, description, public, date, creator, location, price, bdate, edate, min_age) VALUES ( ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)"))
