@@ -11,7 +11,7 @@
           </div>
           <div class="navbar-collapse collapse">
             <ul class="nav navbar-nav">
-                <li class="active"><a href="?">home</a></li>
+                <li class="active"><a href="?page=overview">home</a></li>
               <li><a href="?page=profile">profil</a></li>
               <li><a href="?page=locations">locations</a></li>
               <li><a href="?page=events">veranstaltung erstellen</a></li>

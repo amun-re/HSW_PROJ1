@@ -215,7 +215,7 @@ function parseHTML(html) {
 		{
 			if(table[r].nodeName != "#text" && table[r].childNodes[0].nodeName != "#text")		
 			{
-					ret = ret + "<a href=\""+self.location+"page=showEvent&event="+table[r].childNodes[0].childNodes[0].nodeValue+"\">" + table[r].childNodes[1].childNodes[0].nodeValue + "</a><br>";
+					ret = ret + "<a href=\"overview.php?page=showEvent&event="+table[r].childNodes[0].childNodes[0].nodeValue+"\">" + table[r].childNodes[1].childNodes[0].nodeValue + "</a><br>";
 			}
 		}
 	}
