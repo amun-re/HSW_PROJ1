@@ -14,7 +14,7 @@ if (!empty($error_msg)) {
 			Beschreibung <input type="text" name="description"></input><br>
 			Öffentlich <input type="checkbox" name="publicity"></input><br>
 			Veranstaltungsdatum <input type="date" name="eventdate"></input><br>
-			Location <select name="location">
+			Location <select name="location" style="color:black">
 				<?php $locationList = myLocations($mysqli);
 				//print_r ($locationList);
 					for($i = 0; $i < count ($locationList); $i++)
