@@ -17,9 +17,10 @@ if (login_check($mysqli) == true) {
 		}
 		?>
 	
-		<div id="inhalt_container">
+		
 		
 		<div id="left_container">
+            <p id="partyplaner">partyplaner</p>
 			<form action="process_login.php" method="post" name="login_form">                      
 				Email: <br><input type="text" name="email" />
 				Password:<br> <input type="password" 
@@ -42,9 +43,15 @@ if (login_check($mysqli) == true) {
 				<?php
 			}
 			?>
+            <br>
+             <a href="http://www.facebook.de"><img src="../img/Facebook.png"></a>
+    <a href="http://www.instagram.com"><img src="../img/Instagram.png"></a>
 		</div>
+        
+       
         <?php
 			include 'kalender_template.php';
 			?>
-        </div>
+        
+        
     </body>

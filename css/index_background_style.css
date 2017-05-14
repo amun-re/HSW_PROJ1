@@ -1,3 +1,11 @@
+
+body{
+     background: url("../img/sommerparty.jpg") no-repeat center;
+    background-size:cover;
+     background-color: transparent;
+}
+
+/* 
 * { 
   box-sizing: border-box; 
 }
@@ -8,7 +16,9 @@ html {
   background-blend-mode: darken;
   transition: 3s;
 }
-body { margin: 0; }
+
+body { margin: 0; background-color: transparent;}
+
 div#texttop { 
 	color: #fff;
 	width: 30%;
@@ -31,3 +41,4 @@ p {
 @media all and (max-width: 770px) {
 	div#texttop { display: none; }
 }
+*/

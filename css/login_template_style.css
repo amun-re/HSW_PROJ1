@@ -1,3 +1,4 @@
+/*
 #inhalt_container{
     margin-top:100px; 
     width:940px; 
@@ -12,25 +13,44 @@
     border-spacing: 10px;
     font-size: 20px;
 }
-
+*/
 #left_container{
     float: left;
     width: 20%;
-    height: 505px;
+    height: 500.4px;
 	margin-left: 25%;
 	margin-right: auto;
-    color: black;
+    
     border-radius: 10px;
-    border: 1px solid #eee;
-    box-shadow: 0 4px 4px 0 rgba(50, 50, 50, 0.4);
+   
     display: inline-block;
     margin: 0  20px;
-    background-image: linear-gradient(#fff,#d3d3d3);
-    font-family: 'Trebuchet MS', Helvita, sans-serif;
     font-size: 17px;
      padding: 10px;
+    
+    
+    
+    background-color: black;
+    opacity: 0.85;
+    color: white;
+    text-align: center;
 }
+
+
+
 
 #login_button{
     margin-top:3%;
+    color: black;
+}
+
+#partyplaner{
+    font-family: Georgia, Times, "Times New Roman", serif;
+    font-style: italic;
+    font-size: 30px;
+    margin-bottom: 30px;
+}
+input {
+    color: black;
+    margin-bottom: 20px;
 }
