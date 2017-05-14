@@ -19,7 +19,9 @@ window.onload = function () {
     var day_number = day_name.indexOf(first_date_name_day);
     var current_day_number = day_name.indexOf((new Date(month_name[month] + " " + d.getDate() + " " + year).toDateString()).substring(0, 3));
     var last_date_day = new Date(year, month+1, 0).getDate();
-    document.getElementById("kalender_kopf_inhalt").innerHTML = month_name_ger[month]+ " " + year;
+	if(document.getElementById("kalender_kopf_inhalt") != null)
+	{
+     document.getElementById("kalender_kopf_inhalt").innerHTML = month_name_ger[month]+ " " + year;
     
 	var dmonth = getZeroDate(d.getMonth()+1);
 	var day = getZeroDate(d.getDate());
@@ -37,6 +39,7 @@ window.onload = function () {
     setText('calendar-date', d.getDate());
     setText('calendar-month-year',  document.getElementById("kalender_kopf_inhalt").textContent);
     getData(fulldate);
+	}
 }
 
 // Nummer des ersten Tages des aktuellen Monats, Anzahl der Tage des aktuellen Monats
@@ -212,7 +215,7 @@ function parseHTML(html) {
 		{
 			if(table[r].nodeName != "#text" && table[r].childNodes[0].nodeName != "#text")		
 			{
-					ret = ret + table[r].childNodes[1].childNodes[0].nodeValue + "<br>";
+					ret = ret + "<a href=\""+self.location+"page=showEvent&event="+table[r].childNodes[0].childNodes[0].nodeValue+"\">" + table[r].childNodes[1].childNodes[0].nodeValue + "</a><br>";
 			}
 		}
 	}

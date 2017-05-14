@@ -227,10 +227,12 @@ function getInvites($mysqli)
         // Hole den user-agent string des Benutzers.
         $user_browser = $_SERVER['HTTP_USER_AGENT'];
  
-        if ($stmt = $mysqli->prepare("SELECT p.event as id, name, creator, bdate, edate, p.status as stat
+        if ($stmt = $mysqli->prepare("SELECT p.event as id, name, m.username, bdate, edate, p.status as stat
                                       FROM events as e
 									  JOIN participants as p
 									  on p.event = e.id
+									  LEFT JOIN members as m
+									  on m.id = e.creator
                                       WHERE p.user = ?")) {
             // Bind "$user_id" zum Parameter. 
             $stmt->bind_param('i', $user_id);
@@ -246,6 +248,11 @@ function getInvites($mysqli)
 	}	
 }
 
+function getEvent($mysqli)
+{
+	
+}
+
 function getPageData($string,$mysqli)
 {
 	switch($string)
@@ -254,6 +261,8 @@ function getPageData($string,$mysqli)
 			return getProfile($mysqli);
 		case "events":
 			return [];
+		case "showEvent":
+			return getEvent($mysqli);
 		case "invites":
 			return getInvites($mysqli);
 		case "locations":
@@ -272,6 +281,8 @@ function getPageFunctions($string)
 			return "functions/profile.inc.php";
 		case "events":
 			return "functions/event.func.php";
+		case "showEvent":
+			return "functions/showEvent.inc.php";
 		case "invites":
 			return "functions/invite.inc.php";
 		case "locations":
@@ -289,6 +300,8 @@ function getTemplate($string)
 			return "templates/profile_template.php";
 		case "events":
 			return "templates/event_template.php";
+		case "showEvent":
+			return "templates/showEvent_template.php";
 		case "invites":
 			return "templates/invite_template.php";
 		case "locations":

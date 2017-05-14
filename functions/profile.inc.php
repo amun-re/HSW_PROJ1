@@ -3,7 +3,7 @@ include_once 'mysql.php';
 $error_msg = "";
  
 if (isset($_POST['p'], $_POST['pOld'])) {
-	var_dump($_POST);
+	//var_dump($_POST);
 
 	$user_id = $_SESSION['user_id'];
 	$user_browser = $_SERVER['HTTP_USER_AGENT'];

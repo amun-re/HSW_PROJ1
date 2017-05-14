@@ -16,7 +16,7 @@ if (!empty($error_msg)) {
 			Veranstaltungsdatum <input type="date" name="eventdate"></input><br>
 			Location <select name="location">
 				<?php $locationList = myLocations($mysqli);
-				print_r ($locationList);
+				//print_r ($locationList);
 					for($i = 0; $i < count ($locationList); $i++)
 					{
 						echo '<option>' . $locationList[$i] . '</option>';

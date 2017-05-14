@@ -3,12 +3,13 @@ if($login)
 {
 if (!empty($error_msg)) {
   echo $error_msg;
+  print_r($dataArray);
 }
 ?>
  <div id="content">
             <p class="content-head"><?php echo htmlentities($_SESSION['username']); ?>s Einladungen</p>
 
-			<table border=1>
+			<table width="100%">
 			<tr>
 			<th>Event</th>
 			<th>Ersteller</th>
@@ -20,7 +21,11 @@ if (!empty($error_msg)) {
 			<?php foreach($dataArray as $row) { ?>
 			
 			<tr>
-			<td><?php echo $row[1] ?></td>
+			<td>
+			<?php  
+			echo "<a href=\"".esc_url($_SERVER['PHP_SELF'])."?page=showEvent&event=".$row[0]."\">".$row[1]."</a><br>";
+			?>
+			</td>
 			<td><?php echo $row[2] ?></td>
 			<td><?php echo $row[3] ?></td>
 			<td><?php echo $row[4] ?></td>

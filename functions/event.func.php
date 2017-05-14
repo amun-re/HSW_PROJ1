@@ -6,7 +6,7 @@ $username = $_SESSION['username'];
 $todaydate = date("d.m.Y",time());
 $error_msg = "";
 function myEvents($mysqli, $user_id2) {
-	if ($stmt = $mysqli->prepare("SELECT e.id, e.name, description, public, date, m.username, l.name, price, bdate, edate, min_age FROM events as e join members as m on m.id  inner join locations as l on e.location = l.id WHERE m.id = ?"))
+	if ($stmt = $mysqli->prepare("SELECT e.id, e.name, description, public, date, m.username, l.name, price, bdate, edate, min_age FROM events as e join members as m on m.id = e.creator inner join locations as l on e.location = l.id WHERE m.id = ?"))
 	{
 		 $stmt->bind_param('s', $user_id2);  // Bind "$username" to parameter.
 		 $stmt->execute();    // Führe die vorbereitete Anfrage aus.
@@ -31,7 +31,8 @@ function myEvents($mysqli, $user_id2) {
 			while ($row = $stmt->fetch()) 
 			{
 				echo "<tr>";
-				echo "<td>" . $name . "</td>";
+				echo "<td><a href=\"".esc_url($_SERVER['PHP_SELF'])."?page=showEvent&event=".$id."\">".$name."</a></td>";
+				//echo "<td>" . $name . "</td>";
 				echo "<td>" . $description	 . "</td>";
 				if($public == 0)
 				{
