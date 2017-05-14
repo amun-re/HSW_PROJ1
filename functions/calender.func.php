@@ -58,8 +58,8 @@ else
 
 if(isset($_GET['date']) && strlen($_GET['date']) == 7) 
 {
-	$date = htmlentities($_GET['date']);
-	$sql = "SELECT date FROM events WHERE date LIKE CONCAT(?,'%')";
+	$date = htmlentities($_GET['date']); 
+	$sql = "SELECT distinct date FROM events WHERE date LIKE CONCAT(?,'%')";
 	if ($stmt = $mysqli->prepare($sql))
 	{
 		$stmt->bind_param('s', $date);  // Bind "$email" to parameter.
@@ -67,7 +67,6 @@ if(isset($_GET['date']) && strlen($_GET['date']) == 7)
 		$stmt->store_result();
 		
 		$stmt->bind_result($date);
-		$row = $stmt->fetch();
 		
 		echo "<table name=\"events\" id=\"events\">
 	<tr>
